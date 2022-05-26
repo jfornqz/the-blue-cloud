@@ -15,11 +15,14 @@ export const ALL_POST = gql`
     {
         posts {
             _id
-            create_by
-            desc
-            images
-            timestamp
             title
+            desc
+            timestamp
+            images
+            post_by {
+                _id
+                email
+            }
         }
     }
 `
