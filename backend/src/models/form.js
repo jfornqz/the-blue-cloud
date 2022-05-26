@@ -1,49 +1,35 @@
-const mongoose = require("mongoose")
-const moment = require("moment")
-const { composeWithMongoose } = require("graphql-compose-mongoose")
+const mongoose = require("mongoose");
+const moment = require("moment");
+const { composeWithMongoose } = require("graphql-compose-mongoose");
 
-const { Schema } = mongoose
-
-const enumStatus = {
-    ACTIVE: "Active",
-    IN_ACTIVE: "In Active"
-}
+const { Schema } = mongoose;
 
 const FormSchema = new Schema({
-    title: {
-        type: String,
-        default: null,
-    },
-    desc: {
-        type: String,
-        default: null,
-    },
-    timestamp: {
-        type: Date,
-        default: `${moment().format("YYYY-MM-DD")}T${moment().format("hh:mm:ss")}`,
-    },
-    post_by: {
-        type: Schema.Types.String,
-        ref: "User",
-    },
-    file: {
-        type: [String],
-    },
-    submission: [
-        {
-            type: Schema.Types.Mixed,
-        },
-    ],
-    status: {
-        type: String,
-        enum: Object.keys(enumStatus),
-    },
-})
+  title: {
+    type: String,
+    default: null,
+  },
+  desc: {
+    type: String,
+    default: null,
+  },
+  timestamp: {
+    type: Date,
+    default: `${moment().format("YYYY-MM-DD")}T${moment().format("hh:mm:ss")}`,
+  },
+  post_by: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  file: {
+    type: [String],
+  },
+});
 
-const FormModel = mongoose.model("Form", FormSchema)
+const FormModel = mongoose.model("Form", FormSchema);
 
-exports.FormModel = FormModel
+exports.FormModel = FormModel;
 
-const FormTC = composeWithMongoose(FormModel)
+const FormTC = composeWithMongoose(FormModel);
 
-exports.FormTC = FormTC
+exports.FormTC = FormTC;

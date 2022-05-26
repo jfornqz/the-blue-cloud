@@ -1,4 +1,4 @@
-const { schemaComposer } = require("graphql-compose")
-const { PostTC, PostModel } = require("../../models/post")
+const { PostTC } = require("../../models/post")
 
 exports.posts = PostTC.getResolver("findMany")
+exports.postId = PostTC.getResolver("findById")

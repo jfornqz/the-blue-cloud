@@ -1,33 +1,30 @@
-const mongoose = require("mongoose")
-const { composeWithMongoose } = require("graphql-compose-mongoose")
-const { Schema } = mongoose
+const mongoose = require("mongoose");
+const { composeWithMongoose } = require("graphql-compose-mongoose");
+const { Schema } = mongoose;
 
-const bcrypt = require("mongoose-bcrypt")
+const bcrypt = require("mongoose-bcrypt");
 
-const enumRole = {
-    ADMIN: "Admin",
-    STUDENT: "Student",
-}
+const enumRole = ["Admin", "Student"];
 
 const UserSchema = new Schema({
-    email: {
-        type: String,
-    },
-    password: {
-        type: String,
-    },
-    role: {
-        type: String,
-        enum: Object.keys(enumRole),
-    },
-})
+  password: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  role: {
+    type: String,
+    enum: enumRole,
+  },
+});
 
-UserSchema.plugin(bcrypt)
+UserSchema.plugin(bcrypt);
 
-const UserModel = mongoose.model("User", UserSchema)
+const UserModel = mongoose.model("User", UserSchema);
 
-exports.UserModel = UserModel
+exports.UserModel = UserModel;
 
-const UserTC = composeWithMongoose(UserModel).removeField("password")
+const UserTC = composeWithMongoose(UserModel).removeField("password");
 
-exports.UserTC = UserTC
+exports.UserTC = UserTC;

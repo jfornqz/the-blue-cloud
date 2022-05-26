@@ -15,13 +15,13 @@ const PostSchema = new Schema({
     },
     timestamp: {
         type: Date,
-        default: `${moment().format("YYYY-MM-DD")}`,
+        default: `${moment().format("YYYY-MM-DD")}T${moment().format("hh:mm:ss")}`,
     },
     images: {
         type: [String],
     },
     post_by: {
-        type: Schema.Types.String,
+        type: Schema.Types.ObjectId,
         ref: "User",
     },
 })
