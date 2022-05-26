@@ -8,19 +8,40 @@ const Home = () => {
 
     return (
         <Fragment>
-            <div className="w-full h-fit flex justify-center">
+            <div className="w-full h-fit flex flex-col items-center">
                 {data?.posts?.map((item, index) => {
                     return (
                         <div className="w-3/4 my-5 placeholder:bg-white shadow sm:rounded-lg">
                             <div className="px-4 py-5 sm:px-6">
-                                <span className="inline-flex">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                        {item?.post_by?.email}
-                                    </h3>
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900 ml-3">
-                                        {item?.timestamp?.split('T')[0]}
-                                    </h3>
-                                </span>
+                                <div className="inline-flex">
+                                    {/* <img
+                                        class="inline object-cover w-12 h-12 mr-2 rounded-full"
+                                        src={item?.post_by?.password}
+                                        alt="Profile image"
+                                    /> */}
+                                    <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                        <svg
+                                            className="absolute w-12 h-12 text-gray-400 -left-1"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                clip-rule="evenodd"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <div className="space-y-1 font-medium ml-3">
+                                        <div>
+                                            {item?.post_by?.email}
+                                        </div>
+                                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                                            {item?.timestamp?.split('T')[0]}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="py-3">
                                     <h2 className="font-semibold">
                                         {item?.title}
@@ -31,29 +52,6 @@ const Home = () => {
                         </div>
                     )
                 })}
-                {/* 
-                <div className="w-3/4 my-5 placeholder:bg-white shadow sm:rounded-lg">
-                    <div className="px-4 py-5 sm:px-6">
-                        <span className="inline-flex">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                Post Creator Name
-                            </h3>
-                            <h3 className="text-lg leading-6 font-medium text-gray-900 ml-3">
-                                17/5/2022
-                            </h3>
-                        </span>
-                        <div className="py-3">
-                            <h2 className="font-semibold">
-                                ประชาสัมพันธ์โครงการ JTS Young Blood Startup
-                                Sandbox
-                            </h2>
-                            <p>
-                                description
-                            </p>
-                        </div>
-                    </div>
-                </div> 
-                */}
             </div>
         </Fragment>
     )
