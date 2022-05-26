@@ -14,7 +14,8 @@ const Home = () => {
                         <div className="w-3/4 my-5 placeholder:bg-white shadow sm:rounded-lg">
                             <div className="px-4 py-5 sm:px-6">
                                 <div className="inline-flex">
-                                    {/* <img
+                                    {/* profile image
+                                    <img
                                         class="inline object-cover w-12 h-12 mr-2 rounded-full"
                                         src={item?.post_by?.password}
                                         alt="Profile image"
