@@ -6,6 +6,10 @@ import LoginPage from '../pages/loginpage/Loginpage'
 import Dashboard from '../pages/admin/dashboard/Dashboard'
 import Postspage from '../pages/admin/postspage/Postspage'
 import Formspage from '../pages/admin/formspage/Formspage'
+import HomePage from '../pages/student/homepage/Home'
+import ViewFormPage from '../pages/student/viewform/Viewform'
+import DescPage from '../pages/student/descpage/Desc'
+import ProfilePage from '../pages/student/profilepage/Profile'
 
 const Router = ({ user, cookie }) => {
     return (
