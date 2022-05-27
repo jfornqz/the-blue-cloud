@@ -13,10 +13,10 @@ import { FORM_BY_ID } from '../../../graphql/query'
 const DescPage = () => {
     const { id } = useParams()
     const { user } = useUserStorage()
-    const [fileList, setFileList] = useState()
+    const [fileList, setFileList] = useState([])
     const [uploading, setUploading] = useState(false)
     const [newUpload, setNewUpload] = useState(false)
-
+    console.log(fileList)
     const queryFormIdOpt = {
         variables: {
             submissionsFilter: {

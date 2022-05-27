@@ -26,13 +26,13 @@ const Profile = () => {
                     <Card
                         color="bg-gray-200"
                         label="All Submission"
-                        count={data.submissions.length}
+                        count={data?.submissions?.length}
                     />
                     <Card
                         color="bg-green-200"
                         label="Approved"
                         count={
-                            data.submissions.filter(
+                            data?.submissions?.filter(
                                 (e) => e.status === 'Approved'
                             ).length
                         }
@@ -41,7 +41,7 @@ const Profile = () => {
                         color="bg-red-200"
                         label="Reject"
                         count={
-                            data.submissions.filter(
+                            data?.submissions?.filter(
                                 (e) => e.status === 'Reject'
                             ).length
                         }

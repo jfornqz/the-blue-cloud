@@ -13,6 +13,6 @@ FormTC.addRelation("post_by", {
 FormTC.addRelation("submissions", {
   resolver: SubmissionTC.getResolver("findMany"),
   prepareArgs: {
-    formId: (submission) => submission.formId,
+    form_id: (submission) => submission.form_id,
   },
 });
