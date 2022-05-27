@@ -19,9 +19,6 @@ const DescPage = () => {
     const [submissions, SetSubmission] = useState([])
     const queryFormIdOpt = {
         variables: {
-            submissionsFilter: {
-                submitted_by: user._id,
-            },
             id: id,
         },
         onCompleted: (data) => {
@@ -151,8 +148,8 @@ const DescPage = () => {
         beforeUpload: () => {
             if (fileList.length > 0) {
                 setFileList([])
-                setNewUpload(true)
             }
+            setNewUpload(true)
             return false
         },
         fileList,
@@ -279,7 +276,7 @@ const DescPage = () => {
                     </div>
                     {/* เอกสารที่เกีี่ยวข้องที่นศต้องอัปโหลด */}
                 </div>
-                {submissions.length > 0 && newUpload ? (
+                {newUpload ? (
                     <div className=" h-100 mt-5 mx-10 flex justify-end">
                         <Button
                             size="large"
