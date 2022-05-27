@@ -1,6 +1,7 @@
 FROM node:lts-alpine AS builder
 WORKDIR /usr/src/front-end
 COPY package.json .
+RUN echo "${VITE_API_KEY}"
 RUN npm install
 COPY . .
 RUN ["npm","run" ,"build"]
