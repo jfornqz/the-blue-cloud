@@ -1,13 +1,11 @@
-import { Fragment, useState } from 'react'
-import { IconButton } from '@mui/material'
+import { useQuery } from '@apollo/client'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useMutation, useQuery } from '@apollo/client'
-import { ALL_POST } from '../../../graphql/query'
-
-import Modal from './Modal'
-
+import { IconButton } from '@mui/material'
+import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ALL_POST } from '../../../graphql/query'
+import Modal from './Modal'
 
 const Postspage = () => {
     const { data, loading } = useQuery(ALL_POST)
@@ -22,7 +20,7 @@ const Postspage = () => {
                     <h1 className="text-2xl font-bold">ALL Posts</h1>
                     <div className="w-full h-full flex justify-end">
                         <Link
-                            to='/post/create'
+                            to="/post/create"
                             type="button"
                             className="p-2 h-full rounded-xl bg-gray-700 text-white hover:duration-100 transition hover:bg-gray-900 shadow-lg"
                         >
@@ -60,15 +58,20 @@ const Postspage = () => {
                                             {item?.timestamp?.split('T')[0]}
                                         </h1>
                                         <div className="flex">
-                                            <Link to={`/post/edit/${item?._id}`} >
+                                            <Link
+                                                to={`/post/edit/${item?._id}`}
+                                            >
                                                 <IconButton aria-label="edit">
                                                     <EditIcon />
                                                 </IconButton>
                                             </Link>
-                                            <IconButton aria-label="eye" onClick={() => {
-                                                setEditPost(item?._id)
-                                                setIsOpen(true)
-                                            }}>
+                                            <IconButton
+                                                aria-label="eye"
+                                                onClick={() => {
+                                                    setEditPost(item?._id)
+                                                    setIsOpen(true)
+                                                }}
+                                            >
                                                 <DeleteIcon />
                                             </IconButton>
                                         </div>
@@ -79,9 +82,7 @@ const Postspage = () => {
                     </div>
                 </div>
 
-                {
-                    isOpen && <Modal editPost={editPost} setIsOpen={setIsOpen} />
-                }
+                {isOpen && <Modal editPost={editPost} setIsOpen={setIsOpen} />}
             </div>
         </Fragment>
     )
