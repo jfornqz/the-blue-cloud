@@ -1,19 +1,15 @@
+import { useLazyQuery, useMutation } from '@apollo/client'
+import jwt_decode from 'jwt-decode'
 import {
     createContext,
-    useEffect,
     useCallback,
-    useState,
     useContext,
+    useEffect,
+    useState,
 } from 'react'
-
-import jwt_decode from 'jwt-decode'
-
-import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
 import { useCookies } from 'react-cookie'
-import { useNavigate } from 'react-router-dom'
-
-import { QUERY_ME } from '../graphql/query'
 import { LOGIN } from '../graphql/mutation'
+import { QUERY_ME } from '../graphql/query'
 
 const UserContext = createContext()
 
@@ -50,7 +46,7 @@ const UserProvider = ({ children }) => {
             const res = await login({ variables: record })
             setCookie('token', res?.data?.login?.token, { maxAge: 86400 })
             setUser(res?.data?.login?.user)
-            window.location.pathname = '/dashboard'
+            window.location.pathname = '/'
         } catch (e) {
             console.error(e)
         }
