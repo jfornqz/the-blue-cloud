@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import { useMutation, useQuery } from '@apollo/client'
 import { ALL_FORM } from '../../../graphql/query'
@@ -6,7 +6,10 @@ import { ALL_FORM } from '../../../graphql/query'
 import { NavLink } from 'react-router-dom'
 
 const ViewForm = () => {
-    const { data, loading } = useQuery(ALL_FORM)
+    const [items, SetItems] = useState([])
+    const { data, loading } = useQuery(ALL_FORM, {
+        onCompleted: (data) => SetItems(data.forms),
+    })
 
     return (
         <Fragment>
@@ -16,11 +19,23 @@ const ViewForm = () => {
                         <input
                             type="text"
                             className="h-full w-full focus:outline-none pl-3 rounded-xl border border-gray-400"
+                            onChange={(e) => {
+                                const newItem = Object.assign({}, data)
+                                const itemFiltered = newItem.forms.filter(
+                                    (form) => {
+                                        return (
+                                            form?.title.search(e.target.value) >
+                                            -1
+                                        )
+                                    }
+                                )
+                                SetItems(itemFiltered)
+                            }}
                             placeholder="ค้นหา"
                         />
                     </div>
                 </div>
-                {data?.forms?.map((form, index) => {
+                {items.map((form, index) => {
                     return (
                         <div key={index} className="flex justify-center">
                             <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg">
@@ -35,7 +50,6 @@ const ViewForm = () => {
                                             {form?.title}
                                         </NavLink>
                                     </div>
-                                    {/* click download icon and all docs of that form will be downloaded */}
                                     <div className="grow h-auto flex justify-end">
                                         <a
                                             target="_blank"

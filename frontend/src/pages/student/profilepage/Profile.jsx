@@ -3,27 +3,40 @@ import logo from '../../../assets/images/logo.png'
 import { useLocation, Link } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
 import { SUBMISSION_BY_USERID } from '../../../graphql/query'
+import { useUserStorage } from '../../../contexts/UserContext'
+import Card from './Card'
 
 const Profile = () => {
     const { pathname: currentPath } = useLocation()
+    const { user } = useUserStorage()
+
     const { loading, error, data } = useQuery(SUBMISSION_BY_USERID, {
         variables: {
             submissionsFilter: {
-                submitted_by: '628fa74bfed3027e4d538ccc',
+                submitted_by: user._id,
             },
         },
     })
 
     return (
         <Fragment>
-            {/* <div className="w-full h-10 max-h-10 pt-5 flex ">
-                <p className="text-2xl font-bold">Track Status</p>
-            </div> */}
+            <div className="w-3/4 h-1/4 flex flex-col pl-12 pr-12">
+                <div className="h-auto w-full pt-7 pb-4">
+                    <h1 className="text-2xl text-gray-700 font-bold">
+                        Dashboard
+                    </h1>
+                </div>
+                <div className="w-full grow flex space-x-20">
+                    <Card />
+                    <Card />
+                    <Card />
+                </div>
+            </div>
             {data?.submissions?.map((submission, index) => {
                 return (
-                    <div key={index} className="h-full flex pt-5">
+                    <div key={index} className="flex pt-5">
                         <div className="w-full h-fit flex justify-center ml-10">
-                            <div className="w-3/4 my-5 px-4 py-3 bg-white shadow sm:rounded-lg flex">
+                            <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg flex">
                                 <div className="py-3 flex h-full w-1/2">
                                     <Link
                                         to={`/description/${submission?.form_id?.title}`}

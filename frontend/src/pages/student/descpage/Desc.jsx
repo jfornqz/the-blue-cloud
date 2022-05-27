@@ -1,34 +1,54 @@
 import { UploadOutlined } from '@ant-design/icons'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
-import { Button, Space, Upload, Typography } from 'antd'
+import { Button, Space, Steps, Typography, Upload } from 'antd'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { Fragment, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useUserStorage } from '../../../contexts/UserContext'
 import { storage } from '../../../firebase'
-import { FORM_BY_ID, QUERY_ME } from '../../../graphql/query'
-import { useParams } from 'react-router-dom'
+import { CREATE_SUBMISSION, UPDATE_SUBMISSION } from '../../../graphql/mutation'
+import { FORM_BY_ID } from '../../../graphql/query'
+
 const DescPage = () => {
     const { id } = useParams()
     const { user } = useUserStorage()
-    const { loading, error, data } = useQuery(FORM_BY_ID, {
+    const [fileList, setFileList] = useState()
+    const [uploading, setUploading] = useState(false)
+
+    const queryFormIdOpt = {
         variables: {
             submissionsFilter: {
                 submitted_by: user._id,
             },
             id: id,
         },
+    }
+    const { loading, error, data } = useQuery(FORM_BY_ID, queryFormIdOpt)
+
+    const [createSubmission] = useMutation(CREATE_SUBMISSION, {
+        refetchQueries: [
+            {
+                query: FORM_BY_ID,
+                ...queryFormIdOpt,
+            },
+        ],
     })
-    const [fileList, setFileList] = useState([])
-    const [uploading, setUploading] = useState(false)
-    const [progressPercent, setProgressPercent] = useState(0)
+
+    const [updateSubmission] = useMutation(UPDATE_SUBMISSION, {
+        refetchQueries: [
+            {
+                query: FORM_BY_ID,
+                ...queryFormIdOpt,
+            },
+        ],
+    })
 
     const handleSubmit = () => {
         setUploading(true)
         Promise.all(
             fileList.slice().map((file) => {
                 return new Promise((resolve, reject) => {
-                    console.log(file)
                     file.status = 'uploading'
                     file.percent = 0
                     const storageRef = ref(storage, `files/${file.name}`)
@@ -72,8 +92,27 @@ const DescPage = () => {
             })
         ).then((downloadUrlList) => {
             // TODO: call mutation for update file list in submission
-            console.log(downloadUrlList)
             setUploading(false)
+            if (data?.formId?.submissions.length === 0) {
+                return createSubmission({
+                    variables: {
+                        record: {
+                            file: downloadUrlList,
+                            submitted_by: user._id,
+                            form_id: id,
+                        },
+                    },
+                })
+            } else {
+                return updateSubmission({
+                    variables: {
+                        id: data?.formId?.submissions[0]._id,
+                        record: {
+                            file: downloadUrlList,
+                        },
+                    },
+                })
+            }
         })
     }
 
@@ -94,34 +133,40 @@ const DescPage = () => {
         },
         multiple: true,
     }
+    const STATUS = {
+        Waiting: 0,
+        ['In_progress']: 1,
+        Reject: 1,
+        Approved: 2,
+    }
 
     return (
         <Fragment>
-            {/* {data?.formId?.map((form, index) => {
-                return (
-                    <div>
-                        <div></div>
-                    </div>
-                )
-            })} */}
-
             <div className="w-full h-full">
-                <div className="w-full h-20 py-3 px-4">
-                    <div className="w-full h-full">
-                        {/* มันแตกค่า */}
-                        <div className="flex items-center justify-center">
-                            <h1>Waiting</h1>
-                            <div className="w-1/4 border-b border-gray-300 h-0" />
-                            <h1>In progress</h1>
-                            <div className="w-1/4 border-b border-gray-300 h-0" />
-                            <h1>Approved</h1>
-                            <div className="w-1/4 border-b border-gray-300 h-0" />
-                            <h1>Reject</h1>
-                        </div>
-                    </div>
+                <div className="w-full h-20 py-4 px-4">
+                    <Steps
+                        size="small"
+                        initial={0}
+                        current={
+                            data?.formId?.submissions[0]?.status
+                                ? STATUS[data?.formId?.submissions[0]?.status]
+                                : -1
+                        }
+                        status={
+                            data?.formId?.submissions[0]?.status === 'Reject'
+                                ? 'error'
+                                : data?.formId?.submissions[0]?.status ===
+                                  'Approved'
+                                ? 'finish'
+                                : 'process'
+                        }
+                    >
+                        <Steps.Step title="Waiting" />
+                        <Steps.Step title="In Progress" />
+                        <Steps.Step title="Approved" />
+                    </Steps>
                 </div>
                 <div className="ml-4">
-                    {/* ชื่อคำร้อง + เอกสารที่เกีี่ยวข้องทางขวามือ */}
                     <div className="flex">
                         <div className="flex-1">
                             <div className=" ml-10 mr-10 h-fit px-4 bg-slate-100 rounded-xl">
@@ -181,20 +226,30 @@ const DescPage = () => {
                         </div>
                     </div>
                     {/* เอกสารที่เกีี่ยวข้องที่นศต้องอัปโหลด */}
-                    <div className="mt-5 mx-10">
-                        <Button
-                            className="bg-slate-500 hover:bg-slate-700 text-white font-bold hover:text-white"
-                            size="large"
-                            onClick={handleSubmit}
-                            loading={uploading}
-                            style={{
-                                marginTop: 16,
-                            }}
-                            shape="round"
-                        >
-                            {uploading ? `${progressPercent} %` : 'Submit'}
-                        </Button>
-                    </div>
+                </div>
+                <div className=" h-100 mt-5 mx-10 flex justify-end	">
+                    <Button
+                        size="large"
+                        style={{
+                            marginTop: 16,
+                        }}
+                        shape="round"
+                    >
+                        Cancel
+                    </Button>
+                    <div className="px-1"></div>
+                    <Button
+                        className="bg-slate-500 hover:bg-slate-700 text-white font-bold hover:text-white"
+                        size="large"
+                        onClick={handleSubmit}
+                        loading={uploading}
+                        style={{
+                            marginTop: 16,
+                        }}
+                        shape="round"
+                    >
+                        {uploading ? 'Submitting' : 'Submit'}
+                    </Button>
                 </div>
             </div>
         </Fragment>
