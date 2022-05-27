@@ -42,7 +42,7 @@ const Postspage = () => {
             desc: ''
         })
 
-    }, [])
+    }, [post])
 
 
     return (
@@ -71,7 +71,7 @@ const Postspage = () => {
                             placeholder="Enter your title"
                             className="border-2 px-2 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                         <h1>Topic</h1>
-                        <select className="w-1/6 focus:outline-none p-2 rounded-xl border border-gray-300" id='topics' onChange={handleOnChange}>
+                        <select className="w-1/6 focus:outline-none p-2 rounded-xl border border-gray-300" id='topic' onChange={handleOnChange}>
                             <option>activity</option>
                             <option>announcement</option>
                             <option>informationTech</option>

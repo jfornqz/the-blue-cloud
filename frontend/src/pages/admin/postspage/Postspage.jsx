@@ -1,19 +1,24 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useMutation, useQuery } from '@apollo/client'
 import { ALL_POST } from '../../../graphql/query'
 
+import Modal from './Modal'
+
 import { Link } from 'react-router-dom'
 
 const Postspage = () => {
     const { data, loading } = useQuery(ALL_POST)
 
+    const [isOpen, setIsOpen] = useState(false)
+    const [editPost, setEditPost] = useState(null)
+
     return (
         <Fragment>
-            <div className="w-full grow flex flex-col space-y-8">
-                <div className="h-12 w-full grid grid-cols-2 py-8 px-12">
+            <div className="w-full grow flex flex-col relative">
+                <div className="h-12 w-full grid grid-cols-2 py-8 px-12 mb-5">
                     <h1 className="text-2xl font-bold">ALL Posts</h1>
                     <div className="w-full h-full flex justify-end">
                         <Link
@@ -60,7 +65,10 @@ const Postspage = () => {
                                                     <EditIcon />
                                                 </IconButton>
                                             </Link>
-                                            <IconButton aria-label="eye">
+                                            <IconButton aria-label="eye" onClick={() => {
+                                                setEditPost(item?._id)
+                                                setIsOpen(true)
+                                            }}>
                                                 <DeleteIcon />
                                             </IconButton>
                                         </div>
@@ -70,6 +78,10 @@ const Postspage = () => {
                         </div>
                     </div>
                 </div>
+
+                {
+                    isOpen && <Modal editPost={editPost} setIsOpen={setIsOpen} />
+                }
             </div>
         </Fragment>
     )

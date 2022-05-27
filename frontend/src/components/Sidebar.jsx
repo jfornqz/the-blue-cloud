@@ -11,7 +11,7 @@ const Sidebar = () => {
 
     return (
         <Fragment>
-            <div className="w-full h-full bg-gray-800 flex flex-col">
+            <div className="w-80 h-full bg-gray-800 flex flex-col">
                 <div className='w-full h-36 flex justify-center items-center'>
                     <div className='w-1/2 mr-2 flex justify-end'>
                         <img src={logo} alt="" className='w-20 h-auto' />

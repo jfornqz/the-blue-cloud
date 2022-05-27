@@ -36,11 +36,15 @@ const Navbar = () => {
                 >
                     {!leave && (
                         <div className="absolute shadow-xl rounded-md w-36 max-w-md h-auto top-full pt-1 right-0 flex justify-start bg-white flex-col">
-                            <NavLink
-                                to='/profile'
-                                className="select-none font-light pt-1 pl-3 pb-1 cursor-pointer border-b hover:bg-gray-100 transition duration-100">
-                                Profile
-                            </NavLink>
+                            {
+                                user?.role === 'Student' && (
+                                    <NavLink
+                                        to='/profile'
+                                        className="select-none font-light pt-1 pl-3 pb-1 cursor-pointer border-b hover:bg-gray-100 transition duration-100">
+                                        Profile
+                                    </NavLink>
+                                )
+                            }
                             <h1
                                 className="select-none font-light pt-1 pl-3 pb-1 cursor-pointer hover:bg-gray-100 transition duration-100"
                                 onClick={handleOnLogout}
