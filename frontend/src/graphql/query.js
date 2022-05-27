@@ -13,17 +13,17 @@ export const QUERY_ME = gql`
 export const ALL_POST = gql`
     {
         posts {
+            _id
             title
             desc
             timestamp
             images
-            topic
             post_by {
-                fullname
                 email
                 role
                 _id
             }
+            topic
         }
     }
 `
@@ -85,7 +85,10 @@ export const POST_BY_ID = gql`
 `
 
 export const FORM_BY_ID = gql`
-    query FormId($id: MongoID!) {
+    query FormId(
+        $id: MongoID!
+        $submissionsFilter: FilterFindManySubmissionInput
+    ) {
         formId(_id: $id) {
             _id
             title
@@ -98,18 +101,12 @@ export const FORM_BY_ID = gql`
                 email
                 fullname
             }
-            submissions {
+            submissions(filter: $submissionsFilter) {
                 _id
                 status
                 file
                 timestamp
                 note
-                submitted_by {
-                    _id
-                }
-                form_id {
-                    _id
-                }
             }
         }
     }
@@ -154,6 +151,12 @@ export const ALL_SUBMISSION = gql`
             file
             note
             status
+            form_id {
+                _id
+                title
+                desc
+                timestamp
+            }
             submitted_by {
                 email
                 fullname
