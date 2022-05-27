@@ -22,6 +22,7 @@ export const ALL_POST = gql`
                 email
                 role
                 _id
+                fullname
             }
             topic
         }

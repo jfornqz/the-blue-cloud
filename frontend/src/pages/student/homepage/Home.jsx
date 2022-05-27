@@ -37,7 +37,7 @@ const Home = () => {
     return (
         <Fragment>
             <div className="container mx-auto w-screen h-full pt-8">
-                <div className="flex flex-row h-full space-x-4">
+                <div className="flex flex-row h-full space-x-4 ">
                     <div className="basis-1/4">
                         <div className="w-full  shadow-2xl rounded-xl px-4 py-4">
                             <p className="text-center text-lg font-semibold ">
@@ -91,7 +91,7 @@ const Home = () => {
                     <div className="basis-3/4">
                         <input
                             type="text"
-                            className=" h-10 w-full focus:outline-none pl-3 rounded-xl border border-gray-400"
+                            className=" h-10 w-full focus:outline-none pl-3 rounded-xl border border-gray-300"
                             placeholder="ค้นหา"
                             onChange={(e) => {
                                 SetSearch(e.target.value)
@@ -117,6 +117,7 @@ const Home = () => {
                                         post_by={post?.post_by}
                                         images={post?.images}
                                         timestamp={post?.timestamp}
+                                        topic={enumTopic[post?.topic]}
                                     />
                                 )
                             })}

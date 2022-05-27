@@ -18,14 +18,15 @@ const ViewForm = () => {
                     <div className="relative w-1/2 h-10">
                         <input
                             type="text"
-                            className="h-full w-full focus:outline-none pl-3 rounded-xl border border-gray-400"
+                            className="h-full w-full focus:outline-none pl-3 rounded-xl border border-gray-300"
                             onChange={(e) => {
                                 const newItem = Object.assign({}, data)
                                 const itemFiltered = newItem.forms.filter(
                                     (form) => {
                                         return (
-                                            form?.title.search(e.target.value) >
-                                            -1
+                                            form?.title?.search(
+                                                e.target.value
+                                            ) > -1
                                         )
                                     }
                                 )
@@ -38,9 +39,9 @@ const ViewForm = () => {
                 {items.map((form, index) => {
                     return (
                         <div key={index} className="flex justify-center">
-                            <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg">
+                            <div className="w-3/4 px-4 py-3 bg-white shadow-xl sm:rounded-lg hover:bg-slate-100">
                                 <div className="py-3 w-full flex">
-                                    <div className="w-1/2">
+                                    <div className="w-1/2 text-xl">
                                         <NavLink
                                             to={`/description/${form?._id}`}
                                             className="font-semibold"
