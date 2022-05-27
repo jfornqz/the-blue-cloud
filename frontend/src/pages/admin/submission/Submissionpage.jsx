@@ -17,6 +17,8 @@ const Submissionpage = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [allData, setAllData] = useState({})
 
+    console.log(data)
+
     return (
         <Fragment>
             <div className="w-full grow flex flex-col relative">
@@ -45,12 +47,23 @@ const Submissionpage = () => {
                                             <Fragment key={index}>
                                                 <h1 className="text-center pb-3">{item?.email ?? 'default title for null value'}</h1>
                                                 <h1 className="text-center pb-3">{item?.fullname}</h1>
-                                                <h1 className="text-center pb-3 text-gray-500">{item?.status}</h1>
-                                                <h1 className="text-center pb-3 text-gray-500">{item?.timestamp.split('T')[0]}</h1>
-                                                <button onClick={() => {
-                                                    setIsOpen(true)
-                                                    setAllData({ ...item })
-                                                }}>DETAIL</button>
+                                                <h1 className="text-center text-gray-500 h-6 justify-center w-full flex font-semibold">
+                                                    <div className="bg-green-100 w-1/2 rounded-2xl shadow-2xl ">
+                                                        {item?.status}
+                                                    </div>
+                                                </h1>
+
+                                                <h1 className="text-center pb-3 text-gray-500">{item?.timestamp?.split('T')[0]}</h1>
+                                                <div className="w-full flex justify-center">
+                                                    <button className="bg-gray-800 text-white text-center h-6 w-24 rounded-xl shadow-lg"
+                                                        onClick={() => {
+                                                            setIsOpen(true)
+                                                            setAllData({ ...item })
+                                                        }}>
+                                                        DETAIL
+                                                    </button>
+                                                </div>
+
                                             </Fragment>
                                         )
                                     }
