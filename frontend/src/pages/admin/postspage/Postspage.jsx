@@ -5,6 +5,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import { useMutation, useQuery } from '@apollo/client'
 import { ALL_POST } from '../../../graphql/query'
 
+import { Link } from 'react-router-dom'
+
 const Postspage = () => {
     const { data, loading } = useQuery(ALL_POST)
 
@@ -14,12 +16,13 @@ const Postspage = () => {
                 <div className="h-12 w-full grid grid-cols-2 py-8 px-12">
                     <h1 className="text-2xl font-bold">ALL Posts</h1>
                     <div className="w-full h-full flex justify-end">
-                        <button
+                        <Link
+                            to='/post/create'
                             type="button"
                             className="p-2 h-full rounded-xl bg-gray-700 text-white hover:duration-100 transition hover:bg-gray-900 shadow-lg"
                         >
-                            NEW POST
-                        </button>
+                            + NEW POST
+                        </Link>
                     </div>
                 </div>
 
@@ -52,9 +55,11 @@ const Postspage = () => {
                                             {item?.timestamp?.split('T')[0]}
                                         </h1>
                                         <div className="flex">
-                                            <IconButton aria-label="edit">
-                                                <EditIcon />
-                                            </IconButton>
+                                            <Link to={`/post/edit/${item?._id}`} >
+                                                <IconButton aria-label="edit">
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Link>
                                             <IconButton aria-label="eye">
                                                 <DeleteIcon />
                                             </IconButton>
