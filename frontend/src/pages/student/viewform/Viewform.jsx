@@ -27,7 +27,7 @@ const ViewForm = () => {
                                 <div className="py-3 w-full flex">
                                     <div className="w-1/2">
                                         <NavLink
-                                            to={`/description/${form?.title}`}
+                                            to={`/description/${form?._id}`}
                                             className="font-semibold"
                                             style={{ cursor: 'pointer' }}
                                             onClick={() => console.log('1')}
@@ -37,11 +37,16 @@ const ViewForm = () => {
                                     </div>
                                     {/* click download icon and all docs of that form will be downloaded */}
                                     <div className="grow h-auto flex justify-end">
-                                        <DownloadRoundedIcon
+                                        <a
+                                            target="_blank"
                                             onClick={() => {
-                                                console.log('hi')
+                                                form?.file.forEach((f) => {
+                                                    window.open(f)
+                                                })
                                             }}
-                                        />
+                                        >
+                                            <DownloadRoundedIcon />
+                                        </a>
                                     </div>
                                 </div>
                             </div>

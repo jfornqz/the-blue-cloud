@@ -29,6 +29,7 @@ export const ALL_POST = gql`
 export const ALL_FORM = gql`
     {
         forms {
+            _id
             title
             desc
             timestamp
@@ -36,6 +37,7 @@ export const ALL_FORM = gql`
             post_by {
                 email
             }
+            file
             submissions {
                 status
                 file
@@ -81,7 +83,10 @@ export const POST_BY_ID = gql`
 `
 
 export const FORM_BY_ID = gql`
-    query FormId($id: MongoID!) {
+    query FormId(
+        $id: MongoID!
+        $submissionsFilter: FilterFindManySubmissionInput
+    ) {
         formId(_id: $id) {
             _id
             title
@@ -91,8 +96,15 @@ export const FORM_BY_ID = gql`
             status
             post_by {
                 _id
-                fullname
                 email
+                fullname
+            }
+            submissions(filter: $submissionsFilter) {
+                _id
+                status
+                file
+                timestamp
+                note
             }
         }
     }

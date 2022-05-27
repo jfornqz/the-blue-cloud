@@ -44,10 +44,7 @@ const Router = ({ user, cookie }) => {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/view" element={<ViewFormPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
-                        <Route
-                            path="/description/:title"
-                            element={<DescPage />}
-                        />
+                        <Route path="/description/:id" element={<DescPage />} />
                     </>
                 )}
 
