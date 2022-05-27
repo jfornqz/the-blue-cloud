@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
 import dayjs from 'dayjs'
+import { Fragment } from 'react'
 const Card = ({ title, post_by, desc, timestamp, images, topic }) => {
     return (
         <Fragment>
@@ -19,6 +19,7 @@ const Card = ({ title, post_by, desc, timestamp, images, topic }) => {
                         <img
                             src={images[0]}
                             className="max-w-full h-auto"
+                            style={{ width: 245, height: 245 }}
                             alt="..."
                         />
                     )}

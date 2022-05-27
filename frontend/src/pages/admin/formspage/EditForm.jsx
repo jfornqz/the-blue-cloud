@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client'
 import { Fragment, useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useUserStorage } from '../../../contexts/UserContext'
 import { UPDATE_FORM_BY_ID } from '../../../graphql/mutation'
 import { FORM_BY_ID } from '../../../graphql/query'
@@ -124,7 +124,9 @@ const Postspage = () => {
                             >
                                 Update now
                             </button>
-                            <button className="p-2">Cancel</button>
+                            <Link className="p-2" to="/forms">
+                                Cancel
+                            </Link>
                         </div>
                     </form>
                 </div>
