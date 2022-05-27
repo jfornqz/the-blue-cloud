@@ -16,10 +16,10 @@ const Home = () => {
                 if (selectTopics.length > 0) {
                     return (
                         selectTopics.includes(e.topic) &&
-                        e?.title.search(search) > -1
+                        e?.title?.search(search) > -1
                     )
                 } else {
-                    return e?.title.search(search) > -1
+                    return e?.title?.search(search) > -1
                 }
             }) || [],
         [selectTopics, search, data]
