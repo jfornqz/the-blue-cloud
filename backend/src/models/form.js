@@ -4,6 +4,8 @@ const { composeWithMongoose } = require("graphql-compose-mongoose");
 
 const { Schema } = mongoose;
 
+const enumStatus = ["Active", "Inactive"];
+
 const FormSchema = new Schema({
   title: {
     type: String,
@@ -23,6 +25,11 @@ const FormSchema = new Schema({
   },
   file: {
     type: [String],
+  },
+  status: {
+    type: String,
+    enum: enumStatus,
+    default: "Active",
   },
 });
 
