@@ -7,6 +7,9 @@ import { ALL_FORM } from "../../../graphql/query";
 
 import { Link } from 'react-router-dom'
 
+import { storage } from '../../../firebase'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+
 const Postspage = () => {
 
     const { data, loading } = useQuery(ALL_FORM)
@@ -18,12 +21,13 @@ const Postspage = () => {
                 <div className="h-12 w-full grid grid-cols-2 py-8 px-12">
                     <h1 className="text-2xl font-bold">All Forms</h1>
                     <div className="w-full h-full flex justify-end">
-                        <button
+                        <Link
+                            to='/form/create'
                             type='button'
                             className="p-2 h-full rounded-xl bg-gray-700 text-white hover:duration-100 transition hover:bg-gray-900 shadow-lg"
                         >
-                            + New form
-                        </button>
+                            + NEW FORM
+                        </Link>
                     </div>
                 </div>
 
@@ -47,14 +51,18 @@ const Postspage = () => {
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.submission}</h1>
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.status}</h1>
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.timestamp.split('T')[0]}</h1>
-                                            <Link to='/submission/' className="flex h-full -mt-1 justify-center">
-                                                <IconButton aria-label="delete">
-                                                    <RemoveRedEyeIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="delete">
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </Link>
+                                            <div className="flex h-full -mt-1 justify-center">
+                                                <Link to='/submission/'>
+                                                    <IconButton aria-label="delete">
+                                                        <RemoveRedEyeIcon />
+                                                    </IconButton>
+                                                </Link>
+                                                <Link to='/form/edit'>
+                                                    <IconButton aria-label="delete">
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            </div>
                                         </Fragment>
                                     )
                                 })
