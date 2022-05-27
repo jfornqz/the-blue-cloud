@@ -16,7 +16,7 @@ const Router = ({ user, cookie }) => {
         <Fragment>
             <Routes>
                 {!user && !cookie.token && (
-                    <Route path="/login" element={<ViewFormPage />} />
+                    <Route path="/login" element={<LoginPage />} />
                 )}
 
                 {user?.email === 'admin' ? (

@@ -11,7 +11,7 @@ export const QUERY_ME = gql`
     }
 `
 
-export const ALL_POSTS = gql`
+export const ALL_POST = gql`
     {
         posts {
             _id
@@ -43,7 +43,7 @@ export const QUERY_POST = gql`
     }
 `
 
-export const ALL_FORMS = gql`
+export const ALL_FORM = gql`
     {
         forms {
             _id
