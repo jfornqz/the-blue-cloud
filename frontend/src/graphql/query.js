@@ -3,7 +3,6 @@ import { gql } from '@apollo/client'
 export const QUERY_ME = gql`
     query ($id: MongoID!) {
         me(_id: $id) {
-            username
             email
             role
             _id
@@ -14,30 +13,14 @@ export const QUERY_ME = gql`
 export const ALL_POST = gql`
     {
         posts {
-            _id
             title
             desc
             timestamp
             images
             post_by {
-                _id
                 email
-            }
-        }
-    }
-`
-
-export const QUERY_POST = gql`
-    query PostId($id: MongoID!) {
-        postId(_id: $id) {
-            _id
-            title
-            desc
-            timestamp
-            images
-            post_by {
+                role
                 _id
-                email
             }
         }
     }
@@ -46,67 +29,63 @@ export const QUERY_POST = gql`
 export const ALL_FORM = gql`
     {
         forms {
-            _id
             title
             desc
             timestamp
-            file
             status
             post_by {
-                _id
                 email
             }
             submissions {
-                _id
-                file
                 status
+                file
                 timestamp
                 submitted_by {
-                    _id
                     email
+                    role
+                    _id
+                }
+                form_id {
+                    title
+                    desc
+                    timestamp
+                    post_by {
+                        forms {
+                            _id
+                            desc
+                            title
+                        }
+                    }
                 }
             }
         }
     }
 `
 
-export const QUERY_FORM = gql`
-    query FormId($id: MongoID!) {
-        formId(_id: $id) {
+export const SUBMISSION_BY_ID = gql`
+    query ($id: MongoID!) {
+        submissionId(_id: $id) {
             _id
-            title
-            desc
-            timestamp
             file
+            note
             status
-            post_by {
-                _id
+            submitted_by {
                 email
-            }
-            submissions {
-                _id
-                file
-                status
-                timestamp
-                submitted_by {
-                    _id
-                    email
-                }
+                fullname
             }
         }
     }
 `
 
-export const QUERY_SUBMISSIONS = gql`
-    query Submissions($filter: FilterFindManySubmissionInput) {
+export const ALL_SUBMISSION = gql`
+    query ($filter: FilterFindManySubmissionInput) {
         submissions(filter: $filter) {
-            _id
-            status
             file
-            timestamp
-            form_id {
-                _id
-                title
+            note
+            status
+            submitted_by {
+                email
+                fullname
             }
         }
     }

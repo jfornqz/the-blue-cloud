@@ -5,17 +5,30 @@ import { Button, Upload } from 'antd'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 
 const DescPage = () => {
+
     return (
         <Fragment>
-            <div>
-                <div className="w-3/4 my-5 ml-10 py-3">
-                    <div className="">
+            <div className='w-full h-full'>
+                <div className="w-full h-20 py-3 px-4">
+                    <div className="w-full h-full">
                         {/* มันแตกค่า */}
-                        <Steps current={1}>
-                            <Steps.Item title="Waiting" />
-                            <Steps.Item title="In Progress" />
-                            <Steps.Item title="Approved" />
-                        </Steps>
+                        <div className='flex items-center justify-center'>
+                            <h1>
+                                Waiting
+                            </h1>
+                            <div className='w-1/4 border-b border-gray-300 h-0' />
+                            <h1>
+                                In progress
+                            </h1>
+                            <div className='w-1/4 border-b border-gray-300 h-0' />
+                            <h1>
+                                Approved
+                            </h1>
+                            <div className='w-1/4 border-b border-gray-300 h-0' />
+                            <h1>
+                                Reject
+                            </h1>
+                        </div>
                     </div>
                 </div>
                 <div className="ml-4">
@@ -70,6 +83,7 @@ const DescPage = () => {
             </div>
         </Fragment>
     )
+
 }
 
 export default DescPage

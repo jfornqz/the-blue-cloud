@@ -10,31 +10,3 @@ export const LOGIN = gql`
         }
     }
 `
-
-export const CREATE_POST = gql`
-    mutation Mutation($record: CreateOnePostInput!) {
-        createPost(record: $record) {
-            record {
-                create_by
-                desc
-                images
-                title
-            }
-        }
-    }
-`
-
-export const CREATE_FORM = gql`
-    mutation CreatePost($record: CreateOneFormInput!) {
-        createForm(record: $record) {
-            record {
-                title
-                desc
-                timestamp
-                post_by
-                file
-                submission
-            }
-        }
-    }
-`
