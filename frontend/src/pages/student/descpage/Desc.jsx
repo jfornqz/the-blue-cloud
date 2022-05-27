@@ -15,6 +15,7 @@ const DescPage = () => {
     const { user } = useUserStorage()
     const [fileList, setFileList] = useState()
     const [uploading, setUploading] = useState(false)
+    const [newUpload, setNewUpload] = useState(false)
 
     const queryFormIdOpt = {
         variables: {
@@ -22,6 +23,21 @@ const DescPage = () => {
                 submitted_by: user._id,
             },
             id: id,
+        },
+        onCompleted: (data) => {
+            if (data?.formId?.submissions.length > 0) {
+                const { file: files } = data?.formId?.submissions[0]
+                setFileList(
+                    files.map((file) => ({
+                        name: file
+                            .replace(
+                                'https://firebasestorage.googleapis.com/v0/b/the-blue-cloud.appspot.com/o/files%2F',
+                                ''
+                            )
+                            .split('?')[0],
+                    }))
+                )
+            }
         },
     }
     const { loading, error, data } = useQuery(FORM_BY_ID, queryFormIdOpt)
@@ -90,30 +106,34 @@ const DescPage = () => {
                     )
                 })
             })
-        ).then((downloadUrlList) => {
-            // TODO: call mutation for update file list in submission
-            setUploading(false)
-            if (data?.formId?.submissions.length === 0) {
-                return createSubmission({
-                    variables: {
-                        record: {
-                            file: downloadUrlList,
-                            submitted_by: user._id,
-                            form_id: id,
+        )
+            .then((downloadUrlList) => {
+                // TODO: call mutation for update file list in submission
+                if (data?.formId?.submissions.length === 0) {
+                    return createSubmission({
+                        variables: {
+                            record: {
+                                file: downloadUrlList,
+                                submitted_by: user._id,
+                                form_id: id,
+                            },
                         },
-                    },
-                })
-            } else {
-                return updateSubmission({
-                    variables: {
-                        id: data?.formId?.submissions[0]._id,
-                        record: {
-                            file: downloadUrlList,
+                    })
+                } else {
+                    return updateSubmission({
+                        variables: {
+                            id: data?.formId?.submissions[0]._id,
+                            record: {
+                                file: downloadUrlList,
+                            },
                         },
-                    },
-                })
-            }
-        })
+                    })
+                }
+            })
+            .then(() => {
+                setNewUpload(false)
+                setUploading(false)
+            })
     }
 
     const uploadProps = {
@@ -124,6 +144,10 @@ const DescPage = () => {
             setFileList(newFileList)
         },
         beforeUpload: () => {
+            if (fileList.length > 0) {
+                setFileList([])
+                setNewUpload(true)
+            }
             return false
         },
         fileList,
@@ -183,7 +207,15 @@ const DescPage = () => {
                                 </h2>
                                 <div>
                                     <Upload {...uploadProps}>
-                                        <Button icon={<UploadOutlined />}>
+                                        <Button
+                                            disabled={
+                                                !['Waiting', 'Reject'].includes(
+                                                    data?.formId?.submissions[0]
+                                                        .status
+                                                )
+                                            }
+                                            icon={<UploadOutlined />}
+                                        >
                                             Select File
                                         </Button>
                                     </Upload>
@@ -246,9 +278,7 @@ const DescPage = () => {
                     </div>
                     {/* เอกสารที่เกีี่ยวข้องที่นศต้องอัปโหลด */}
                 </div>
-                {data?.formId?.submissions.length > 0 ? (
-                    <></>
-                ) : (
+                {data?.formId?.submissions.length > 0 && newUpload ? (
                     <div className=" h-100 mt-5 mx-10 flex justify-end">
                         <Button
                             size="large"
@@ -273,6 +303,8 @@ const DescPage = () => {
                             {uploading ? 'Submitting' : 'Submit'}
                         </Button>
                     </div>
+                ) : (
+                    <></>
                 )}
             </div>
         </Fragment>
