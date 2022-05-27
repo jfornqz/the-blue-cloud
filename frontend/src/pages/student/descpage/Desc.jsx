@@ -16,7 +16,7 @@ const DescPage = () => {
     const [fileList, setFileList] = useState([])
     const [uploading, setUploading] = useState(false)
     const [newUpload, setNewUpload] = useState(false)
-    console.log(fileList)
+    const [submissions, SetSubmission] = useState([])
     const queryFormIdOpt = {
         variables: {
             submissionsFilter: {
@@ -25,8 +25,13 @@ const DescPage = () => {
             id: id,
         },
         onCompleted: (data) => {
-            if (data?.formId?.submissions.length > 0) {
-                const { file: files } = data?.formId?.submissions[0]
+            const submissionFiltered =
+                data?.formId?.submissions.filter(
+                    (e) => e.submitted_by?._id === user._id
+                ) || []
+            SetSubmission(submissionFiltered)
+            if (submissionFiltered.length > 0) {
+                const { file: files } = submissionFiltered[0]
                 setFileList(
                     files.map((file) => ({
                         name: file
@@ -109,7 +114,7 @@ const DescPage = () => {
         )
             .then((downloadUrlList) => {
                 // TODO: call mutation for update file list in submission
-                if (data?.formId?.submissions.length === 0) {
+                if (submissions.length === 0) {
                     return createSubmission({
                         variables: {
                             record: {
@@ -122,7 +127,7 @@ const DescPage = () => {
                 } else {
                     return updateSubmission({
                         variables: {
-                            id: data?.formId?.submissions[0]._id,
+                            id: submissions[0]._id,
                             record: {
                                 file: downloadUrlList,
                             },
@@ -167,20 +172,19 @@ const DescPage = () => {
     return (
         <Fragment>
             <div className="w-full h-full container mx-auto space-y-8">
-                <div className="pt-16">
+                <div className="pt-16 px-6">
                     <Steps
                         size="small"
                         initial={0}
                         current={
-                            data?.formId?.submissions[0]?.status
-                                ? STATUS[data?.formId?.submissions[0]?.status]
+                            submissions[0]?.status
+                                ? STATUS[submissions[0]?.status]
                                 : -1
                         }
                         status={
-                            data?.formId?.submissions[0]?.status === 'Reject'
+                            submissions[0]?.status === 'Reject'
                                 ? 'error'
-                                : data?.formId?.submissions[0]?.status ===
-                                  'Approved'
+                                : submissions[0]?.status === 'Approved'
                                 ? 'finish'
                                 : 'process'
                         }
@@ -210,8 +214,7 @@ const DescPage = () => {
                                         <Button
                                             disabled={
                                                 !['Waiting', 'Reject'].includes(
-                                                    data?.formId?.submissions[0]
-                                                        .status
+                                                    submissions[0]?.status
                                                 )
                                             }
                                             icon={<UploadOutlined />}
@@ -265,11 +268,10 @@ const DescPage = () => {
                                     </Space>
                                 </div>
                             </div>
-                            {data?.formId?.submissions[0]?.status ===
-                            'Reject' ? (
+                            {submissions[0]?.status === 'Reject' ? (
                                 <div className="w-full h-fit bg-slate-100 rounded-xl mr-10 space-y-4 py-4 px-8">
                                     <p className="font-bold text-xl">Note : </p>
-                                    <p>{data?.formId?.submissions[0]?.note}</p>
+                                    <p>{submissions[0]?.note}</p>
                                 </div>
                             ) : (
                                 <></>
@@ -278,13 +280,14 @@ const DescPage = () => {
                     </div>
                     {/* เอกสารที่เกีี่ยวข้องที่นศต้องอัปโหลด */}
                 </div>
-                {data?.formId?.submissions.length > 0 && newUpload ? (
+                {submissions.length > 0 && newUpload ? (
                     <div className=" h-100 mt-5 mx-10 flex justify-end">
                         <Button
                             size="large"
                             style={{
                                 marginTop: 16,
                             }}
+                            onClick={() => window.location.reload()}
                             shape="round"
                         >
                             Cancel

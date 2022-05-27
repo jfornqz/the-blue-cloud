@@ -56,7 +56,7 @@ const Profile = () => {
                                 <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg flex">
                                     <div className="py-3 flex h-full w-1/2">
                                         <Link
-                                            to={`/description/${submission?.form_id?.title}`}
+                                            to={`/description/${submission?.form_id?._id}`}
                                             className="font-semibold items-center flex"
                                             style={{ cursor: 'pointer' }}
                                         >
