@@ -16,11 +16,11 @@ const enumTopic = {
 const PostSchema = new Schema({
   title: {
     type: "String",
-    default: null,
+    required: true,
   },
   desc: {
     type: "String",
-    default: null,
+    required: true,
   },
   timestamp: {
     type: Date,
@@ -32,10 +32,12 @@ const PostSchema = new Schema({
   post_by: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   topic: {
     type: String,
     enum: Object.keys(enumTopic),
+    required: true,
   },
 });
 

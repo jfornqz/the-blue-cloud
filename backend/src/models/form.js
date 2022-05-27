@@ -9,11 +9,11 @@ const enumStatus = ["Active", "Inactive"];
 const FormSchema = new Schema({
   title: {
     type: String,
-    default: null,
+    required: true,
   },
   desc: {
     type: String,
-    default: null,
+    required: true,
   },
   timestamp: {
     type: Date,
@@ -22,6 +22,7 @@ const FormSchema = new Schema({
   post_by: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   file: {
     type: [String],
