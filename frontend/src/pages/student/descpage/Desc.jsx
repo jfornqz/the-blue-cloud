@@ -142,8 +142,8 @@ const DescPage = () => {
 
     return (
         <Fragment>
-            <div className="w-full h-full">
-                <div className="w-full h-20 py-4 px-4">
+            <div className="w-full h-full container mx-auto space-y-8">
+                <div className="pt-16">
                     <Steps
                         size="small"
                         initial={0}
@@ -166,22 +166,22 @@ const DescPage = () => {
                         <Steps.Step title="Approved" />
                     </Steps>
                 </div>
-                <div className="ml-4">
-                    <div className="flex">
-                        <div className="flex-1">
-                            <div className=" ml-10 mr-10 h-fit px-4 bg-slate-100 rounded-xl">
-                                <h2 className="pt-5 font-medium leading-7 text-gray-900 text-xl">
+                <div>
+                    <div className="flex space-x-4">
+                        <div className="flex-1 space-y-4">
+                            <div className="h-fit px-8 py-4 bg-slate-100 rounded-xl">
+                                <h2 className="leading-7 text-gray-900 text-xl font-bold">
                                     {data?.formId?.title}
                                 </h2>
-                                <div className="my-4">
+                                <div className="">
                                     <p> {data?.formId?.desc}</p>
                                 </div>
                             </div>
-                            <div className="mr-10 h-fit ml-10 mt-5 px-4 bg-slate-100 rounded-xl">
-                                <h2 className="pt-5 font-medium leading-7 text-gray-900 text-xl">
+                            <div className=" h-fit px-8 py-4 bg-slate-100 rounded-xl space-y-4">
+                                <h2 className="font-bold leading-7 text-gray-900 text-xl">
                                     อัพโหลดเอกสาร
                                 </h2>
-                                <div className="py-5">
+                                <div>
                                     <Upload {...uploadProps}>
                                         <Button icon={<UploadOutlined />}>
                                             Select File
@@ -190,11 +190,11 @@ const DescPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-1/4 h-fit px-4 bg-slate-100 rounded-xl mr-10">
-                            <h2 className="pt-5 font-medium leading-7 text-gray-900 text-xl">
+                        <div className="w-1/4 h-fit bg-slate-100 rounded-xl mr-10 space-y-4 py-4 px-8">
+                            <h2 className="font-bold leading-7 text-gray-900 text-xl">
                                 เอกสารที่เกี่ยวข้อง
                             </h2>
-                            <div className="my-4 ">
+                            <div className="">
                                 <Space direction="vertical">
                                     {data?.formId?.file.map((file, index) => {
                                         return (
