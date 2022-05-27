@@ -35,15 +35,15 @@ const Modal = ({ setIsOpen, allData }) => {
             <div className="w-full h-full absolute bg-gray-200 bg-opacity-60 top-0 left-0 flex items-center justify-center">
                 <form className="w-1/2 h-1/2 bg-white flex flex-col shadow-lg rounded-xl pl-5 pt-2" onSubmit={handleOnSubmit}>
                     <div className="w-full grow flex flex-col">
-                        <div className="w-full h-1/4 flex p-3 flex-wrap">
-                            <h1 className="w-1/2 text-2xl font-bold font-serif -mb-1">{allData?.title ?? 'No title'}</h1>
+                        <div className="w-full h-1/4 flex p-3 flex-wrap space-y-1">
+                            <h1 className="w-1/2 text-lg font-bold font-serif -mb-1">{allData?.form_id?.title ?? 'No title'}</h1>
                             <div className='w-1/2 flex justify-end pr-3'>
                                 <div className="bg-blue-100 rounded-md h-6 px-1.5 ">
                                     <h1 className=" font-semibold">{allData?.status}</h1>
                                 </div>
                             </div>
-                            <h1 className="mr-2">{allData?.fullname ?? 'No data'}</h1>
-                            <h1>{allData?.email ?? 'No data'}</h1>
+                            <h1 className="mr-2">{allData?.submitted_by?.fullname ?? 'No data'}</h1>
+                            <h1>{allData?.submitted_by?.email ?? 'No data'}</h1>
                         </div>
 
                         <div className="w-full grow p-3 flex">
@@ -54,7 +54,6 @@ const Modal = ({ setIsOpen, allData }) => {
                                         return <a className="text-sm font-medium mt-1" key={index} href={item} target='_blank'>{`file${index + 1}`}</a>
                                     })
                                 }
-
                                 <div className="w-full grow pt-7">
                                     <h1 className="mb-2">Note</h1>
                                     <input
@@ -75,7 +74,7 @@ const Modal = ({ setIsOpen, allData }) => {
                                 <select className="w-11/12 border border-gray-300 p-2 rounded-lg focus:outline-none" onChange={handleOnChange} id='status'>
                                     <option className="">{allData?.status}</option>
                                     {
-                                        (['Waiting', 'In Progress', 'Approve', 'Reject'].filter(item => item !== allData?.status)).map((item, index) => {
+                                        (["Waiting", "In_progress", "Approved", "Reject"].filter(item => item !== allData?.status)).map((item, index) => {
                                             return <option key={index}>{item}</option>
                                         })
                                     }

@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <Fragment>
-            <div className="w-full h-16 max-h-20 bg-white shadow-xl flex justify-end items-center pr-9 space-x-5">
+            <div className="w-full h-16 max-h-20 bg-white shadow-xl flex justify-end items-center pr-9 space-x-5 relative">
                 {
                     user?.role !== 'Admin' && (
                         <Fragment>

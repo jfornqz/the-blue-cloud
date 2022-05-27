@@ -27,7 +27,7 @@ const App = () => {
                     {user?.role === 'Admin' && <Sidebar />}
                 </div>
 
-                <div className={`${pathname !== '/login' ? 'h-full grow flex flex-col' : 'w-full h-full'}`}>
+                <div className={`${pathname !== '/login' ? 'h-full w-full flex flex-col' : 'w-full h-full'}`}>
                     {pathname !== '/login' && <Navbar />}
                     <Router user={user} cookie={cookie} />
                 </div>

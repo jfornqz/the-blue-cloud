@@ -43,10 +43,10 @@ const Submissionpage = () => {
 
                                         return (
                                             <Fragment key={index}>
-                                                <h1 className="text-center pb-3">{item?.email ?? 'default title for null value'}</h1>
-                                                <h1 className="text-center pb-3">{item?.fullname}</h1>
+                                                <h1 className="text-center pb-3">{item?.submitted_by?.email ?? 'default title for null value'}</h1>
+                                                <h1 className="text-center pb-3">{item?.submitted_by?.fullname}</h1>
                                                 <h1 className="text-center text-gray-500 h-6 justify-center w-full flex font-semibold">
-                                                    <div className="bg-green-100 w-1/2 rounded-2xl shadow-2xl ">
+                                                    <div className="w-1/2 rounded-2xl shadow-2xl ">
                                                         {item?.status}
                                                     </div>
                                                 </h1>

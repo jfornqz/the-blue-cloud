@@ -105,3 +105,20 @@ export const DELETE_POST_BY_ID = gql`
         }
     }
 `
+
+export const UPDATE_FORM_BY_ID = gql`
+    mutation UpdateFormId($id: MongoID!, $record: UpdateByIdFormInput!) {
+        updateFormId(_id: $id, record: $record) {
+            record {
+                title
+                desc
+                post_by {
+                    _id
+                }
+                file
+                status
+                _id
+            }
+        }
+    }
+`
