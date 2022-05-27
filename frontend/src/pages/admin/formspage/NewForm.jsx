@@ -7,12 +7,15 @@ import { UploadOutlined } from '@ant-design/icons'
 import { storage } from '../../../firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 
+import { CREATE_ONE_FORM } from "../../../graphql/mutation";
+
 import { Button, Space, Upload, Typography } from 'antd'
 
 const Postspage = () => {
 
     const [fileList, setFileList] = useState([])
     const [uploading, setUploading] = useState(false)
+    const [createOneForm] = useMutation(CREATE_ONE_FORM)
 
 
     const [form, setForm] = useState({
@@ -20,7 +23,7 @@ const Postspage = () => {
         desc: '',
     })
 
-    const handleOnSubmit = useCallback((e) => {
+    const handleOnSubmit = useCallback(async (e) => {
         e.preventDefault()
         Promise.all(
             fileList.slice().map((file) => {
@@ -67,22 +70,21 @@ const Postspage = () => {
                     )
                 })
             })
-        ).then((downloadUrlList) => {
-            console.log(downloadUrlList)
+        ).then(async (downloadUrlList) => {
+            try {
+                await createOneForm({ variables: { record: { ...form, file: downloadUrlList } } })
+            } catch {
+                console.log('error')
+            }
         })
 
-        try {
-            await
-        } catch {
-
-        }
 
     }, [fileList])
 
     const handleOnChange = useCallback((e) => {
         const { id, value } = e.target
 
-
+        setForm({ [id]: value })
 
     }, [])
 
