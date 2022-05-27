@@ -3,31 +3,26 @@ import { Steps } from 'rsuite'
 import { UploadOutlined } from '@ant-design/icons'
 import { Button, Upload } from 'antd'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
+import { useMutation, useQuery } from '@apollo/client'
+import { FORM_BY_ID } from '../../../graphql/query'
 
 const DescPage = () => {
+    const { data, loading } = useQuery(FORM_BY_ID)
 
     return (
         <Fragment>
-            <div className='w-full h-full'>
+            <div className="w-full h-full">
                 <div className="w-full h-20 py-3 px-4">
                     <div className="w-full h-full">
                         {/* มันแตกค่า */}
-                        <div className='flex items-center justify-center'>
-                            <h1>
-                                Waiting
-                            </h1>
-                            <div className='w-1/4 border-b border-gray-300 h-0' />
-                            <h1>
-                                In progress
-                            </h1>
-                            <div className='w-1/4 border-b border-gray-300 h-0' />
-                            <h1>
-                                Approved
-                            </h1>
-                            <div className='w-1/4 border-b border-gray-300 h-0' />
-                            <h1>
-                                Reject
-                            </h1>
+                        <div className="flex items-center justify-center">
+                            <h1>Waiting</h1>
+                            <div className="w-1/4 border-b border-gray-300 h-0" />
+                            <h1>In progress</h1>
+                            <div className="w-1/4 border-b border-gray-300 h-0" />
+                            <h1>Approved</h1>
+                            <div className="w-1/4 border-b border-gray-300 h-0" />
+                            <h1>Reject</h1>
                         </div>
                     </div>
                 </div>
@@ -83,7 +78,6 @@ const DescPage = () => {
             </div>
         </Fragment>
     )
-
 }
 
 export default DescPage
