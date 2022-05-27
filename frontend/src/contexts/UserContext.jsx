@@ -46,7 +46,11 @@ const UserProvider = ({ children }) => {
             const res = await login({ variables: record })
             setCookie('token', res?.data?.login?.token, { maxAge: 86400 })
             setUser(res?.data?.login?.user)
-            window.location.pathname = '/'
+            if (res?.data?.login?.user?.role === 'Student') {
+                window.location.pathname = '/'
+            } else {
+                window.location.pathname = '/dashboard'
+            }
         } catch (e) {
             console.error(e)
         }

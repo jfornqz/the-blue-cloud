@@ -126,6 +126,9 @@ const DescPage = () => {
                         variables: {
                             id: submissions[0]._id,
                             record: {
+                                ...(submissions[0].status === 'Reject' && {
+                                    status: 'Waiting',
+                                }),
                                 file: downloadUrlList,
                             },
                         },
