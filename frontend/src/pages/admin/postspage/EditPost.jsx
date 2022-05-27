@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { POST_BY_ID } from "../../../graphql/query";
 import { UPDATE_POST_BY_ID } from "../../../graphql/mutation";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Postspage = () => {
 
@@ -90,7 +90,7 @@ const Postspage = () => {
                     <div className="w-full h-auto shadow-xl bg-white rounded-t-xl border flex flex-col border-gray-200 p-6 space-y-2">
                         <label>Title</label>
                         <input
-                            value={data?.postId?.title}
+                            value={post?.title}
                             id='title'
                             onChange={handleOnChange}
                             type="text"
@@ -123,7 +123,7 @@ const Postspage = () => {
                             <button
                                 type='submit'
                                 className="bg-blue-500 border-2 rounded text-white p-2 mr-2">Save</button>
-                            <button className="p-2">Cancel</button>
+                            <Link className="p-2" to="/posts">Cancel</Link>
                         </div>
                     </div>
 

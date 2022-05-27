@@ -156,6 +156,7 @@ export const ALL_SUBMISSION = gql`
             file
             note
             status
+            timestamp
             form_id {
                 _id
                 title

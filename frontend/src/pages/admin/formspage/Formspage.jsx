@@ -46,9 +46,9 @@ const Postspage = () => {
                                 data?.forms?.map((form, index) => {
                                     return (
                                         <Fragment key={index}>
-                                            <h1 className="text-center pb-3 flex items-center justify-center">{form?.title}</h1>
+                                            <h1 className="text-center pb-3 flex items-center justify-start truncate">{form?.title}</h1>
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.post_by?.email}</h1>
-                                            <h1 className="text-center pb-3 flex items-center justify-center">{form?.submission}</h1>
+                                            <h1 className="text-center pb-3 flex items-center justify-center">{form?.submissions.length}</h1>
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.status}</h1>
                                             <h1 className="text-center pb-3 flex items-center justify-center">{form?.timestamp.split('T')[0]}</h1>
                                             <div className="flex h-full -mt-1 justify-center">
@@ -57,7 +57,7 @@ const Postspage = () => {
                                                         <RemoveRedEyeIcon />
                                                     </IconButton>
                                                 </Link>
-                                                <Link to='/form/edit'>
+                                                <Link to={`/form/edit/${form?._id}`}>
                                                     <IconButton aria-label="delete">
                                                         <EditIcon />
                                                     </IconButton>
