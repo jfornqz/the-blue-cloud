@@ -18,6 +18,7 @@ export const ALL_POST = gql`
             timestamp
             images
             post_by {
+                fullname
                 email
                 role
                 _id
