@@ -1,9 +1,7 @@
-import { Fragment, useState, useMemo } from 'react'
-
-import Card from './Card'
-
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
+import { Fragment, useMemo, useState } from 'react'
 import { ALL_POST } from '../../../graphql/query'
+import Card from './Card'
 
 const Home = () => {
     const [selectTopics, SetSelectTopic] = useState([])
@@ -95,16 +93,6 @@ const Home = () => {
                             placeholder="ค้นหา"
                             onChange={(e) => {
                                 SetSearch(e.target.value)
-                                // const newItem = Object.assign({}, data)
-                                // const itemFiltered = newItem.posts.filter(
-                                //     (form) => {
-                                //         return (
-                                //             form?.title.search(e.target.value) >
-                                //             -1
-                                //         )
-                                //     }
-                                // )
-                                // SetItems(itemFiltered)
                             }}
                         />
                         <div className="space-y-4 pt-4">

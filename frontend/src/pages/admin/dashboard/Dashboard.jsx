@@ -1,12 +1,11 @@
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
+import { Fragment } from 'react'
+import { useUserStorage } from '../../../contexts/UserContext'
 import {
     ALL_FORM,
     ALL_POST,
     SUBMISSION_BY_USERID,
 } from '../../../graphql/query'
-import { useUserStorage } from '../../../contexts/UserContext'
-import { Fragment } from 'react'
-
 import Card from './Card'
 
 const Dashboard = () => {
@@ -21,7 +20,7 @@ const Dashboard = () => {
 
     return (
         <Fragment>
-            <div className="w-full grow flex flex-col bg-gray-100 space-y-10">
+            <div className="w-full grow flex flex-col bg-gray-100 space-y-16">
                 <div className="w-full h-1/4 flex flex-col pl-12 pr-12">
                     <div className="h-auto w-full pt-7 pb-4">
                         <h1 className="text-2xl text-gray-700 font-bold">
