@@ -11,10 +11,13 @@ import { CREATE_ONE_FORM } from "../../../graphql/mutation";
 
 import { Button, Space, Upload, Typography } from 'antd'
 
+import { useUserStorage } from "../../../contexts/UserContext";
+
 const Postspage = () => {
 
     const [fileList, setFileList] = useState([])
     const [uploading, setUploading] = useState(false)
+    const { user } = useUserStorage()
     const [createOneForm] = useMutation(CREATE_ONE_FORM)
 
 
@@ -72,19 +75,19 @@ const Postspage = () => {
             })
         ).then(async (downloadUrlList) => {
             try {
-                await createOneForm({ variables: { record: { ...form, file: downloadUrlList } } })
+                await createOneForm({ variables: { record: { ...form, file: downloadUrlList, post_by: user?._id } } })
             } catch {
                 console.log('error')
             }
         })
 
 
-    }, [fileList])
+    }, [fileList, form])
 
     const handleOnChange = useCallback((e) => {
         const { id, value } = e.target
 
-        setForm({ [id]: value })
+        setForm(prev => ({ ...prev, [id]: value }))
 
     }, [])
 

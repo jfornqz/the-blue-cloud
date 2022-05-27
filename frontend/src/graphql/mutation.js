@@ -6,6 +6,7 @@ export const LOGIN = gql`
             token
             user {
                 email
+                role
             }
         }
     }
@@ -90,6 +91,16 @@ export const UPDATE_SUBMISSION_BY_ID = gql`
                     _id
                 }
                 note
+            }
+        }
+    }
+`
+
+export const DELETE_POST_BY_ID = gql`
+    mutation UpdateFormId($id: MongoID!) {
+        deletePostId(_id: $id) {
+            record {
+                _id
             }
         }
     }
