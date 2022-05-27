@@ -62,6 +62,42 @@ export const ALL_FORM = gql`
     }
 `
 
+export const POST_BY_ID = gql`
+    query PostId($id: MongoID!) {
+        postId(_id: $id) {
+            _id
+            title
+            desc
+            timestamp
+            images
+            topic
+            post_by {
+                _id
+                fullname
+                email
+            }
+        }
+    }
+`
+
+export const FORM_BY_ID = gql`
+    query FormId($id: MongoID!) {
+        formId(_id: $id) {
+            _id
+            title
+            desc
+            timestamp
+            file
+            status
+            post_by {
+                _id
+                fullname
+                email
+            }
+        }
+    }
+`
+
 export const SUBMISSION_BY_ID = gql`
     query ($id: MongoID!) {
         submissionId(_id: $id) {
@@ -72,6 +108,24 @@ export const SUBMISSION_BY_ID = gql`
             submitted_by {
                 email
                 fullname
+            }
+        }
+    }
+`
+
+export const SUBMISSION_BY_USERID = gql`
+    query Submissions($submissionsFilter: FilterFindManySubmissionInput) {
+        submissions(filter: $submissionsFilter) {
+            _id
+            status
+            file
+            timestamp
+            note
+            form_id {
+                _id
+                title
+                desc
+                file
             }
         }
     }
