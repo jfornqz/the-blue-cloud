@@ -194,11 +194,11 @@ const DescPage = () => {
                 <div>
                     <div className="flex space-x-4">
                         <div className="flex-1 space-y-4">
-                            <div className="h-fit px-8 py-4 bg-slate-100 rounded-xl">
+                            <div className="h-fit px-8 py-4 bg-slate-100 rounded-xl space-y-4">
                                 <h2 className="leading-7 text-gray-900 text-xl font-bold">
                                     {data?.formId?.title}
                                 </h2>
-                                <div className="">
+                                <div>
                                     <p> {data?.formId?.desc}</p>
                                 </div>
                             </div>
