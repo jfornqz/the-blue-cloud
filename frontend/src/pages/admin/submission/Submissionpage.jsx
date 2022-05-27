@@ -17,8 +17,6 @@ const Submissionpage = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [allData, setAllData] = useState({})
 
-    console.log(data)
-
     return (
         <Fragment>
             <div className="w-full grow flex flex-col relative">

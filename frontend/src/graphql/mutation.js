@@ -41,25 +41,33 @@ export const CREATE_ONE_FORM = gql`
         }
     }
 `
-export const CREATE_SUBMISSION = gql`
-    mutation CreateOneSubmission($record: CreateOneSubmissionInput!) {
-        createOneSubmission(record: $record) {
+
+export const UPDATE_POST_BY_ID = gql`
+    mutation UpdateFormId($id: MongoID!, $record: UpdateByIdPostInput!) {
+        updatePostId(_id: $id, record: $record) {
             record {
-                _id
+                title
+                desc
+                post_by {
+                    _id
+                }
+                topic
             }
         }
     }
-    `
+`
 
-
-export const UPDATE_SUBMISSION = gql`
-    mutation UpdateSubmissionId(
-        $id: MongoID!
-        $record: UpdateByIdSubmissionInput!
-    ) {
+export const UPDATE_SUBMISSION_BY_ID = gql`
+    mutation UpdateFormId($id: MongoID!, $record: UpdateByIdSubmissionInput!) {
         updateSubmissionId(_id: $id, record: $record) {
             record {
-                _id
+                status
+                file
+                submitted_by {
+                    _id
+                }
+                note
             }
         }
-    }`
+    }
+`

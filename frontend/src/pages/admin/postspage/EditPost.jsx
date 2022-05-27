@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useMutation, useQuery } from "@apollo/client";
 
 import { POST_BY_ID } from "../../../graphql/query";
+import { UPDATE_POST_BY_ID } from "../../../graphql/mutation";
 
 import { useParams } from "react-router-dom";
 
@@ -17,6 +18,8 @@ const Postspage = () => {
         }
     })
     const [post, setPost] = useState({})
+
+    const [updatePostById] = useMutation(UPDATE_POST_BY_ID)
 
     useEffect(() => {
         setPost({
@@ -42,22 +45,37 @@ const Postspage = () => {
                 otherTopic.push(topics[topic])
             }
         })
-
-
         return [topics[post?.topic], ...otherTopic]
 
-    }, [post])
+    }, [data, post])
 
 
     const handleOnChange = useCallback((e) => {
 
         const { id, value } = e.target
+        let topics = {
+            'กิจกรรม': 'activity',
+            'ประกาศ': 'announcement',
+            'ข่าวเทคโนโลยี': 'informationTech',
+            'งาน': 'job',
+            'ทุนการศึกษา': 'scholarship',
+            'อื่น': 'other',
+        }
 
-        setPost({ [id]: value })
+        setPost(prev => ({ ...prev, [id]: id === 'topic' ? topics[value] : value }))
 
     }, [])
 
-    console.log(sortTopic)
+    const handleOnSubmit = useCallback(async (e) => {
+        e.preventDefault()
+
+        try {
+            await updatePostById({ variables: { id: postId, record: { ...post } } })
+        } catch {
+            console.log('error')
+        }
+
+    }, [post])
 
 
     return (
@@ -68,7 +86,7 @@ const Postspage = () => {
 
                 </div>
 
-                <div className="grow px-12">
+                <form className="grow px-12" onSubmit={handleOnSubmit}>
                     <div className="w-full h-auto shadow-xl bg-white rounded-t-xl border flex flex-col border-gray-200 p-6 space-y-2">
                         <label>Title</label>
                         <input
@@ -86,23 +104,33 @@ const Postspage = () => {
                             placeholder="Enter your title"
                             className="border-2 px-2 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                         <h1>Topic</h1>
-                        <select className="w-1/6 focus:outline-none p-2 rounded-xl border border-gray-300 ">
+                        <select
+                            className="w-1/6 focus:outline-none p-2 rounded-xl border border-gray-300"
+                            onChange={handleOnChange}
+                            id='topic'>
                             {
-                                sortTopic.map(item => {
-                                    return <option>{item}</option>
+                                sortTopic.map((item, index) => {
+                                    return (
+                                        index === 0 ?
+                                            <option key={index} value={item}>{item}</option>
+                                            :
+                                            <option key={index} value={item}>{item}</option>
+                                    )
                                 })
                             }
                         </select>
                         <div className="flex justify-end p-5">
-                            <button className="bg-blue-500 border-2 rounded text-white p-2 mr-2">Save</button>
+                            <button
+                                type='submit'
+                                className="bg-blue-500 border-2 rounded text-white p-2 mr-2">Save</button>
                             <button className="p-2">Cancel</button>
                         </div>
                     </div>
 
-                </div>
+                </form>
 
-            </div>
-        </Fragment>
+            </div >
+        </Fragment >
     )
 }
 

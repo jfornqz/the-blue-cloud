@@ -148,6 +148,7 @@ export const SUBMISSION_BY_USERID = gql`
 export const ALL_SUBMISSION = gql`
     query ($filter: FilterFindManySubmissionInput) {
         submissions(filter: $filter) {
+            _id
             file
             note
             status
