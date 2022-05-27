@@ -190,67 +190,90 @@ const DescPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-1/4 h-fit bg-slate-100 rounded-xl mr-10 space-y-4 py-4 px-8">
-                            <h2 className="font-bold leading-7 text-gray-900 text-xl">
-                                เอกสารที่เกี่ยวข้อง
-                            </h2>
-                            <div className="">
-                                <Space direction="vertical">
-                                    {data?.formId?.file.map((file, index) => {
-                                        return (
-                                            <Space key={index}>
-                                                <DownloadForOfflineIcon
-                                                    onClick={() => {
-                                                        window.open(file)
-                                                    }}
-                                                />
-                                                <Typography.Text
-                                                    ellipsis
-                                                    style={{ width: 200 }}
-                                                >
-                                                    {
-                                                        file
-                                                            .replace(
-                                                                'https://firebasestorage.googleapis.com/v0/b/the-blue-cloud.appspot.com/o/files%2F',
-                                                                ''
-                                                            )
-                                                            .split('?')[0]
-                                                    }
-                                                </Typography.Text>
-                                                <p className="truncate overflow-hidden"></p>
-                                            </Space>
-                                        )
-                                    })}
-                                </Space>
+                        <div className="space-y-4">
+                            <div className="w-full h-fit bg-slate-100 rounded-xl mr-10 space-y-4 py-4 px-8">
+                                <h2 className="font-bold leading-7 text-gray-900 text-xl">
+                                    เอกสารที่เกี่ยวข้อง
+                                </h2>
+                                <div className="">
+                                    <Space direction="vertical">
+                                        {data?.formId?.file.map(
+                                            (file, index) => {
+                                                return (
+                                                    <Space key={index}>
+                                                        <DownloadForOfflineIcon
+                                                            onClick={() => {
+                                                                window.open(
+                                                                    file
+                                                                )
+                                                            }}
+                                                        />
+                                                        <Typography.Text
+                                                            ellipsis
+                                                            style={{
+                                                                width: 200,
+                                                            }}
+                                                        >
+                                                            {
+                                                                file
+                                                                    .replace(
+                                                                        'https://firebasestorage.googleapis.com/v0/b/the-blue-cloud.appspot.com/o/files%2F',
+                                                                        ''
+                                                                    )
+                                                                    .split(
+                                                                        '?'
+                                                                    )[0]
+                                                            }
+                                                        </Typography.Text>
+                                                        <p className="truncate overflow-hidden"></p>
+                                                    </Space>
+                                                )
+                                            }
+                                        )}
+                                    </Space>
+                                </div>
                             </div>
+                            {data?.formId?.submissions[0]?.status ===
+                            'Reject' ? (
+                                <div className="w-full h-fit bg-slate-100 rounded-xl mr-10 space-y-4 py-4 px-8">
+                                    <p className="font-bold text-xl">Note : </p>
+                                    <p>{data?.formId?.submissions[0]?.note}</p>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                     {/* เอกสารที่เกีี่ยวข้องที่นศต้องอัปโหลด */}
                 </div>
-                <div className=" h-100 mt-5 mx-10 flex justify-end	">
-                    <Button
-                        size="large"
-                        style={{
-                            marginTop: 16,
-                        }}
-                        shape="round"
-                    >
-                        Cancel
-                    </Button>
-                    <div className="px-1"></div>
-                    <Button
-                        className="bg-slate-500 hover:bg-slate-700 text-white font-bold hover:text-white"
-                        size="large"
-                        onClick={handleSubmit}
-                        loading={uploading}
-                        style={{
-                            marginTop: 16,
-                        }}
-                        shape="round"
-                    >
-                        {uploading ? 'Submitting' : 'Submit'}
-                    </Button>
-                </div>
+                {data?.formId?.submissions.length > 0 ? (
+                    <></>
+                ) : (
+                    <div className=" h-100 mt-5 mx-10 flex justify-end">
+                        <Button
+                            size="large"
+                            style={{
+                                marginTop: 16,
+                            }}
+                            shape="round"
+                        >
+                            Cancel
+                        </Button>
+                        <div className="px-1"></div>
+                        <Button
+                            className="bg-slate-500 hover:bg-slate-700 text-white font-bold hover:text-white"
+                            size="large"
+                            onClick={handleSubmit}
+                            loading={uploading}
+                            style={{
+                                marginTop: 16,
+                            }}
+                            shape="round"
+                        >
+                            {uploading ? 'Submitting' : 'Submit'}
+                        </Button>
+                    </div>
+                )}
             </div>
         </Fragment>
     )
