@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import UserProvider from './contexts/UserContext'
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    uri: 'https://blue-cloud-gql.ourweus.space/graphql',
     cache: new InMemoryCache(),
     defaultOptions: {
         watchQuery: {
