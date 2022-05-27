@@ -33,10 +33,13 @@ const Router = ({ user, cookie }) => {
                             path="/submission/:formId"
                             element={<Submissionpage />}
                         />
-                        <Route path="/newPost" element={<NewPost />} />
-                        <Route path="/editPost" element={<EditPost />} />
-                        <Route path="/newForm" element={<NewForm />} />
-                        <Route path="/editForm" element={<EditForm />} />
+                        <Route path="/post/create" element={<NewPost />} />
+                        <Route
+                            path="/post/edit/:postId"
+                            element={<EditPost />}
+                        />
+                        <Route path="/form/create" element={<NewForm />} />
+                        <Route path="/form/edit" element={<EditForm />} />
                     </>
                 )}
                 {user?.role === 'Student' && (
