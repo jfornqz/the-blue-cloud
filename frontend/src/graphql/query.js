@@ -17,6 +17,7 @@ export const ALL_POST = gql`
             desc
             timestamp
             images
+            topic
             post_by {
                 fullname
                 email
