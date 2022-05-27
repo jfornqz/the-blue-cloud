@@ -11,29 +11,24 @@ export const LOGIN = gql`
     }
 `
 
-export const CREATE_POST = gql`
-    mutation Mutation($record: CreateOnePostInput!) {
-        createPost(record: $record) {
+export const CREATE_SUBMISSION = gql`
+    mutation CreateOneSubmission($record: CreateOneSubmissionInput!) {
+        createOneSubmission(record: $record) {
             record {
-                create_by
-                desc
-                images
-                title
+                _id
             }
         }
     }
 `
 
-export const CREATE_FORM = gql`
-    mutation CreatePost($record: CreateOneFormInput!) {
-        createForm(record: $record) {
+export const UPDATE_SUBMISSION = gql`
+    mutation UpdateSubmissionId(
+        $id: MongoID!
+        $record: UpdateByIdSubmissionInput!
+    ) {
+        updateSubmissionId(_id: $id, record: $record) {
             record {
-                title
-                desc
-                timestamp
-                post_by
-                file
-                submission
+                _id
             }
         }
     }

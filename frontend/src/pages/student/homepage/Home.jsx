@@ -1,58 +1,53 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
+
+import Card from './Card'
 
 import { useMutation, useQuery } from '@apollo/client'
 import { ALL_POST } from '../../../graphql/query'
 
 const Home = () => {
-    const { data, loading } = useQuery(ALL_POST)
+    const [items, SetItems] = useState([])
+    const { data, loading } = useQuery(ALL_POST, {
+        onCompleted: (data) => SetItems(data.posts),
+    })
 
     return (
         <Fragment>
-            <div className="w-full h-fit flex flex-col items-center">
-                {data?.posts?.map((item, index) => {
-                    return (
-                        <div className="w-3/4 my-5 placeholder:bg-white shadow sm:rounded-lg">
-                            <div className="px-4 py-5 sm:px-6">
-                                <div className="inline-flex">
-                                    {/* profile image
-                                    <img
-                                        class="inline object-cover w-12 h-12 mr-2 rounded-full"
-                                        src={item?.post_by?.password}
-                                        alt="Profile image"
-                                    /> */}
-                                    <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                        <svg
-                                            className="absolute w-12 h-12 text-gray-400 -left-1"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                    <div className="space-y-1 font-medium ml-3">
-                                        <div>
-                                            {item?.post_by?.email}
-                                        </div>
-                                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                                            {item?.timestamp?.split('T')[0]}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="py-3">
-                                    <h2 className="font-semibold">
-                                        {item?.title}
-                                    </h2>
-                                    <p> {item?.desc}</p>
-                                </div>
-                            </div>
+            <div className="w-full h-full flex space-x-10 overflow-y-auto">
+                <div className="w-1/4 h-full pt-5 flex justify-center">
+                    <div className="w-2/3 h-1/3 shadow-2xl rounded-xl"></div>
+                </div>
+
+                <div className="grow h-full flex flex-col pt-5 space-y-10">
+                    <div className="w-full h-10 max-h-10 flex justify-start">
+                        <div className="relative w-1/2 h-10">
+                            <input
+                                type="text"
+                                className="h-full w-full focus:outline-none pl-3 rounded-xl border border-gray-400"
+                                placeholder="ค้นหา"
+                                onChange={(e) => {
+                                    const newItem = Object.assign({}, data)
+                                    const itemFiltered = newItem.posts.filter(
+                                        (form) => {
+                                            return (
+                                                form?.title.search(
+                                                    e.target.value
+                                                ) > -1
+                                            )
+                                        }
+                                    )
+                                    SetItems(itemFiltered)
+                                }}
+                            />
                         </div>
-                    )
-                })}
+                    </div>
+
+                    <div className="h-full w-full flex flex-col justify-start space-y-4 mt-3">
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+                </div>
             </div>
         </Fragment>
     )

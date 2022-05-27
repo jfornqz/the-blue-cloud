@@ -1,31 +1,72 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
+import { useMutation, useQuery } from '@apollo/client'
+import { ALL_FORM } from '../../../graphql/query'
+
+import { NavLink } from 'react-router-dom'
 
 const ViewForm = () => {
+    const [items, SetItems] = useState([])
+    const { data, loading } = useQuery(ALL_FORM, {
+        onCompleted: (data) => SetItems(data.forms),
+    })
 
     return (
         <Fragment>
-            <div className="w-full h-fit flex justify-center">
-                <div className="w-3/4 my-5 px-4 py-3 bg-white shadow sm:rounded-lg">
-                    <div className="py-3 inline-flex">
-                        <h2
-                            className="font-semibold"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                toDescPage()
+            <div className="w-full h-full flex flex-col space-y-10 pt-10">
+                <div className="w-full h-10 max-h-10 flex justify-center">
+                    <div className="relative w-1/2 h-10">
+                        <input
+                            type="text"
+                            className="h-full w-full focus:outline-none pl-3 rounded-xl border border-gray-400"
+                            onChange={(e) => {
+                                const newItem = Object.assign({}, data)
+                                const itemFiltered = newItem.forms.filter(
+                                    (form) => {
+                                        return (
+                                            form?.title.search(e.target.value) >
+                                            -1
+                                        )
+                                    }
+                                )
+                                SetItems(itemFiltered)
                             }}
-                        >
-                            แบบฟอร์มคำร้องขอ
-                        </h2>
-                        {/* click download icon and all docs of that form will be downloaded */}
-                        <DownloadRoundedIcon
-                            className="ml-96"
-                            onClick={() => {
-                                console.log('hi')
-                            }}
+                            placeholder="ค้นหา"
                         />
                     </div>
                 </div>
+                {items.map((form, index) => {
+                    return (
+                        <div key={index} className="flex justify-center">
+                            <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg">
+                                <div className="py-3 w-full flex">
+                                    <div className="w-1/2">
+                                        <NavLink
+                                            to={`/description/${form?._id}`}
+                                            className="font-semibold"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => console.log('1')}
+                                        >
+                                            {form?.title}
+                                        </NavLink>
+                                    </div>
+                                    <div className="grow h-auto flex justify-end">
+                                        <a
+                                            target="_blank"
+                                            onClick={() => {
+                                                form?.file.forEach((f) => {
+                                                    window.open(f)
+                                                })
+                                            }}
+                                        >
+                                            <DownloadRoundedIcon />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
             </div>
         </Fragment>
     )

@@ -1,0 +1,28 @@
+name: the-blue-cloud-backend
+region: sgp
+services:
+- dockerfile_path: ./backend/Dockerfile
+  envs:
+  - key: MONGO_HOST
+    scope: RUN_AND_BUILD_TIME
+    value: mongodb+srv://blue-cloud.0r19m.mongodb.net
+  - key: MONGO_DB
+    scope: RUN_AND_BUILD_TIME
+    value: the-blue-cloud
+  - key: MONGO_USER
+    scope: RUN_AND_BUILD_TIME
+    value: blue-cloud
+  - key: MONGO_PASS
+    scope: RUN_AND_BUILD_TIME
+    value: 8sfGxbFkyj9BRYyX
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: pspapleng/the-blue-cloud
+  http_port: 4000
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: the-blue-cloud-backend
+  routes:
+  - path: /
+  source_dir: backend

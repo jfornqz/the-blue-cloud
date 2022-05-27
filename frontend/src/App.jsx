@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUserStorage } from './contexts/UserContext'
 
@@ -23,11 +23,11 @@ const App = () => {
     return (
         <Fragment>
             <div className="w-screen h-screen flex ">
-                <div className={`${user?.email === 'admin' && 'w-1/6 h-full'}`}>
-                    {user?.email === 'admin' && <Sidebar />}
+                <div className={`${user?.role === 'Admin' && 'w-1/6 h-full'}`}>
+                    {user?.role === 'Admin' && <Sidebar />}
                 </div>
 
-                <div className={`${pathname !== '/login' ? 'h-full w-5/6 flex flex-col' : 'w-full h-full'}`}>
+                <div className={`${pathname !== '/login' ? 'h-full grow flex flex-col' : 'w-full h-full'}`}>
                     {pathname !== '/login' && <Navbar />}
                     <Router user={user} cookie={cookie} />
                 </div>
