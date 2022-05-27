@@ -11,7 +11,7 @@ export const QUERY_ME = gql`
     }
 `
 
-export const ALL_POST = gql`
+export const ALL_POSTS = gql`
     {
         posts {
             _id
@@ -27,15 +27,87 @@ export const ALL_POST = gql`
     }
 `
 
-export const ALL_FORM = gql`
-    {
-        forms {
+export const QUERY_POST = gql`
+    query PostId($id: MongoID!) {
+        postId(_id: $id) {
+            _id
             title
             desc
             timestamp
-            post_by
+            images
+            post_by {
+                _id
+                email
+            }
+        }
+    }
+`
+
+export const ALL_FORMS = gql`
+    {
+        forms {
+            _id
+            title
+            desc
+            timestamp
             file
-            submission
+            status
+            post_by {
+                _id
+                email
+            }
+            submissions {
+                _id
+                file
+                status
+                timestamp
+                submitted_by {
+                    _id
+                    email
+                }
+            }
+        }
+    }
+`
+
+export const QUERY_FORM = gql`
+    query FormId($id: MongoID!) {
+        formId(_id: $id) {
+            _id
+            title
+            desc
+            timestamp
+            file
+            status
+            post_by {
+                _id
+                email
+            }
+            submissions {
+                _id
+                file
+                status
+                timestamp
+                submitted_by {
+                    _id
+                    email
+                }
+            }
+        }
+    }
+`
+
+export const QUERY_SUBMISSIONS = gql`
+    query Submissions($filter: FilterFindManySubmissionInput) {
+        submissions(filter: $filter) {
+            _id
+            status
+            file
+            timestamp
+            form_id {
+                _id
+                title
+            }
         }
     }
 `
