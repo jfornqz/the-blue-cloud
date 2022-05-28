@@ -40,7 +40,7 @@ const ViewForm = () => {
                         <div key={index} className="flex justify-center">
                             <div className="w-3/4 px-4 py-3 bg-white shadow-xl sm:rounded-lg hover:bg-slate-100">
                                 <div className="py-3 w-full flex">
-                                    <div className="w-1/2 text-xl">
+                                    <div className="w-1/2 text-lg">
                                         <NavLink
                                             to={`/description/${form?._id}`}
                                             className="font-semibold"

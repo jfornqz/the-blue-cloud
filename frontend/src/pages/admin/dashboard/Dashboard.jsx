@@ -61,7 +61,7 @@ const Dashboard = () => {
                             label="In progress"
                             count={
                                 submissionData?.submissions?.filter(
-                                    (e) => e.status === 'In progress'
+                                    (e) => e.status === 'In_progress'
                                 ).length
                             }
                         />

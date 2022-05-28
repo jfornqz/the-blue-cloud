@@ -213,7 +213,7 @@ const DescPage = () => {
                                     <Upload {...uploadProps}>
                                         <Button
                                             disabled={[
-                                                'In Progress',
+                                                'In_progress',
                                                 'Approved',
                                             ].includes(submissions[0]?.status)}
                                             icon={<UploadOutlined />}
