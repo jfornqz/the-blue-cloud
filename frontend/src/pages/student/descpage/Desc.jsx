@@ -216,10 +216,9 @@ const DescPage = () => {
                                 >
                                     <Upload {...uploadProps}>
                                         <Button
-                                            disabled={[
-                                                'In_progress',
-                                                'Approved',
-                                            ].includes(submissions[0]?.status)}
+                                            disabled={['In_progress'].includes(
+                                                submissions[0]?.status
+                                            )}
                                             icon={<UploadOutlined />}
                                         >
                                             Select File
