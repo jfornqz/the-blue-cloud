@@ -47,16 +47,16 @@ const Profile = () => {
                     />
                 </div>
             </div>
-            <div>
+            <div className="pt-4">
                 {data?.submissions?.map((submission, index) => {
                     return (
                         <div key={index} className="flex pt-5">
                             <div className="w-full h-fit flex justify-center ml-10">
-                                <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg flex">
+                                <div className="w-3/4 px-4 py-3 bg-white shadow sm:rounded-lg hover:bg-slate-100  flex">
                                     <div className="py-3 flex h-full w-1/2">
                                         <Link
                                             to={`/description/${submission?.form_id?._id}`}
-                                            className="font-semibold items-center flex"
+                                            className="font-semibold items-center flex text-lg"
                                             style={{ cursor: 'pointer' }}
                                         >
                                             {submission?.form_id?.title}
@@ -68,10 +68,10 @@ const Profile = () => {
                                                 Waiting
                                             </p>
                                         </div>
-                                    ) : submission?.status == 'In progress' ? (
+                                    ) : submission?.status == 'In_progress' ? (
                                         <div className="grow h-fit py-1 px-2 rounded-full flex justify-end">
                                             <p className="bg-blue-200 p-1.5 rounded-xl">
-                                                Approved
+                                                In progress
                                             </p>
                                         </div>
                                     ) : submission?.status == 'Approved' ? (
@@ -83,7 +83,7 @@ const Profile = () => {
                                     ) : submission?.status == 'Reject' ? (
                                         <div className="grow h-fit py-1 px-2 rounded-full flex justify-end">
                                             <p className="bg-red-200 p-1.5 rounded-xl">
-                                                Approved
+                                                Reject
                                             </p>
                                         </div>
                                     ) : null}

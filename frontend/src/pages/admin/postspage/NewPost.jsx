@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Button, Upload } from 'antd'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { Fragment, useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useUserStorage } from '../../../contexts/UserContext'
 import { storage } from '../../../firebase'
 import { CREATE_ONE_POST } from '../../../graphql/mutation'
@@ -14,7 +15,14 @@ const Postspage = () => {
     const [fileList, setFileList] = useState([])
 
     const [createOnePost] = useMutation(CREATE_ONE_POST)
-
+    let topics = {
+        activity: 'กิจกรรม',
+        announcement: 'ประกาศจากทางคณะ',
+        informationTech: 'ข่าวสารเทคโนโลยี',
+        job: 'ประกาศรับสมัครงาน/ฝึกงาน',
+        scholarship: 'ทุนการศึกษา',
+        other: 'อื่นๆ',
+    }
     const [post, setPost] = useState({
         title: '',
         desc: '',
@@ -93,6 +101,7 @@ const Postspage = () => {
                     title: '',
                     desc: '',
                 })
+                window.location = '/posts'
             })
         },
         [fileList, post]
@@ -147,12 +156,13 @@ const Postspage = () => {
                             id="topic"
                             onChange={handleOnChange}
                         >
-                            <option>activity</option>
-                            <option>announcement</option>
-                            <option>informationTech</option>
-                            <option>job</option>
-                            <option>scholarship</option>
-                            <option>other</option>
+                            {Object.keys(topics).map((topic, index) => {
+                                return (
+                                    <option key={index} value={topic}>
+                                        {topics[topic]}
+                                    </option>
+                                )
+                            })}
                         </select>
                         <label>Attachments</label>
                         <Upload {...uploadProps}>
@@ -167,7 +177,9 @@ const Postspage = () => {
                             >
                                 SAVE
                             </button>
-                            <button className="p-2">Cancel</button>
+                            <Link className="p-2" to="/posts">
+                                Cancel
+                            </Link>
                         </div>
                     </div>
                 </form>

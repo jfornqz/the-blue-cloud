@@ -209,13 +209,16 @@ const DescPage = () => {
                                 <h2 className="font-bold leading-7 text-gray-900 text-xl">
                                     อัพโหลดเอกสาร
                                 </h2>
-                                <div>
+                                <div
+                                    style={{
+                                        width: '320px',
+                                    }}
+                                >
                                     <Upload {...uploadProps}>
                                         <Button
-                                            disabled={[
-                                                'In Progress',
-                                                'Approved',
-                                            ].includes(submissions[0]?.status)}
+                                            disabled={['In_progress'].includes(
+                                                submissions[0]?.status
+                                            )}
                                             icon={<UploadOutlined />}
                                         >
                                             Select File

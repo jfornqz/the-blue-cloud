@@ -44,6 +44,7 @@ const Postspage = () => {
                         },
                     },
                 })
+                window.location = '/forms'
             } catch {
                 console.log('error')
             }
@@ -81,7 +82,7 @@ const Postspage = () => {
                 <div className="h-12 w-full grid grid-cols-2 py-8 px-12">
                     <h1 className="text-2xl font-bold">Edit Form</h1>
 
-                    <div className="flex h-full items-center justify-end">
+                    {/* <div className="flex h-full items-center justify-end">
                         <input
                             type="checkbox"
                             className="mr-1"
@@ -91,7 +92,7 @@ const Postspage = () => {
                             value={active}
                         />
                         <h1 className="text-lg">Active</h1>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="grow px-12">
@@ -116,13 +117,12 @@ const Postspage = () => {
                             placeholder="Enter your title"
                             className="border-2 px-2 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         />
-                        {/* <input type="file" placeholder="Enter your title" className="border-2 px-2 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150" /> */}
                         <div className="flex justify-end p-5">
                             <button
                                 type="submit"
                                 className="bg-blue-500 border-2 rounded text-white p-2 mr-2"
                             >
-                                Update now
+                                Save
                             </button>
                             <Link className="p-2" to="/forms">
                                 Cancel
