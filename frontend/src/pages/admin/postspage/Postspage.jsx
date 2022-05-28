@@ -57,7 +57,7 @@ const Postspage = () => {
                                         <h1 className="text-center pb-3 text-gray-500">
                                             {item?.timestamp?.split('T')[0]}
                                         </h1>
-                                        <div className="flex">
+                                        <div className="flex h-full -mt-1 justify-center">
                                             <Link
                                                 to={`/post/edit/${item?._id}`}
                                             >
