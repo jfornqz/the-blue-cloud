@@ -26,11 +26,11 @@ const Postspage = () => {
     const sortTopic = useMemo(() => {
         let topics = {
             activity: 'กิจกรรม',
-            announcement: 'ประกาศ',
-            informationTech: 'ข่าวเทคโนโลยี',
-            job: 'งาน',
+            announcement: 'ประกาศจากทางคณะ',
+            informationTech: 'ข่าวสารเทคโนโลยี',
+            job: 'ประกาศรับสมัครงาน/ฝึกงาน',
             scholarship: 'ทุนการศึกษา',
-            other: 'อื่น',
+            other: 'อื่นๆ',
         }
 
         let otherTopic = []
@@ -46,11 +46,11 @@ const Postspage = () => {
         const { id, value } = e.target
         let topics = {
             กิจกรรม: 'activity',
-            ประกาศ: 'announcement',
-            ข่าวเทคโนโลยี: 'informationTech',
-            งาน: 'job',
+            ประกาศจากทางคณะ: 'announcement',
+            ข่าวสารเทคโนโลยี: 'informationTech',
+            ประกาศรับสมัครงานฝึกงาน: 'job',
             ทุนการศึกษา: 'scholarship',
-            อื่น: 'other',
+            อื่นๆ: 'other',
         }
 
         setPost((prev) => ({

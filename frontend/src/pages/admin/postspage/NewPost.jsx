@@ -17,11 +17,11 @@ const Postspage = () => {
     const [createOnePost] = useMutation(CREATE_ONE_POST)
     let topics = {
         activity: 'กิจกรรม',
-        announcement: 'ประกาศ',
-        informationTech: 'ข่าวเทคโนโลยี',
-        job: 'งาน',
+        announcement: 'ประกาศจากทางคณะ',
+        informationTech: 'ข่าวสารเทคโนโลยี',
+        job: 'ประกาศรับสมัครงาน/ฝึกงาน',
         scholarship: 'ทุนการศึกษา',
-        other: 'อื่น',
+        other: 'อื่นๆ',
     }
     const [post, setPost] = useState({
         title: '',
