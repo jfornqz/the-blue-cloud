@@ -209,7 +209,11 @@ const DescPage = () => {
                                 <h2 className="font-bold leading-7 text-gray-900 text-xl">
                                     อัพโหลดเอกสาร
                                 </h2>
-                                <div>
+                                <div
+                                    style={{
+                                        width: '320px',
+                                    }}
+                                >
                                     <Upload {...uploadProps}>
                                         <Button
                                             disabled={[
