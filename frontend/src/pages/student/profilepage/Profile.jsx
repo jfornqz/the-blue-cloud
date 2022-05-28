@@ -47,7 +47,7 @@ const Profile = () => {
                     />
                 </div>
             </div>
-            <div>
+            <div className="pt-4">
                 {data?.submissions?.map((submission, index) => {
                     return (
                         <div key={index} className="flex pt-5">

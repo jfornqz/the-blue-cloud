@@ -47,7 +47,7 @@ const Postspage = () => {
                             {data?.posts?.map((item, index) => {
                                 return (
                                     <Fragment key={index}>
-                                        <h1 className="text-center pb-3 truncate">
+                                        <h1 className=" pb-3 truncate">
                                             {item?.title ??
                                                 'default title for null value'}
                                         </h1>
